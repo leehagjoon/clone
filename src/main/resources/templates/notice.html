@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항</title>
+</head>
+<body>
+<form action="/" method="get">
+  <div class="search">
+    <label>
+      <input name="keyword" type="text" placeholder="검색어를 입력하세요">
+    </label>
+  </div>
+  <button>검색</button>
+</form>
+    <table>
+      <thead>
+      <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>등록일</th>
+        <th>조회수</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="notice : ${noticeList}">
+        <td>
+          <span th:text="${notice.noticeSno}"></span>
+        </td>
+        <td>
+          <a th:href="@{'/detail/' + ${notice.title}}">
+            <span th:text="${notice.title}"></span>
+          </a>
+        </td>
+        <td>
+          <span th:text="${notice.creatUser}"></span>
+        </td>
+        <td>
+          <span th:text="${#temporals.format(notice.creatDt, 'yyyy-MM-dd HH:mm')}"></span>
+        </td>
+        <td>
+          <span th:text="${notice.expsrCnt}"></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+</body>
+</html>

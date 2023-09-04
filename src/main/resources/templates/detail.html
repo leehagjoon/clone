@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상세보기</title>
+</head>
+<body>
+<table>
+  <tr></tr>
+</table>
+  <h2 th:text="${noticeDto.title}"></h2>
+  <p th:inline="text">등록일 : [[${#temporals.format(noticeDto.creatDt, 'yyyy-MM-dd HH:mm')}]]</p>
+  <p th:text="${noticeDto.content}"></p>
+</body>
+</html>
