@@ -1,6 +1,8 @@
 package com.clonecoding.entity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,4 +25,8 @@ public interface NoticeBasRepository extends JpaRepository<NoticeBas, Integer> {
     List<NoticeBas> findAllByOrderByNoticeSnoDesc();
 
     List<NoticeBas> findByTitleContainingOrderByNoticeSnoDesc(String keyword);
+
+    @Modifying //Query 어노테이션에서 작성된 조회를 제외한 데이터의 변경이 있는 삽입,수정,삭제 쿼리 사용시 필요한 어노테이션
+    @Query("update NoticeBas n set n.expsrCnt = n.expsrCnt + 1 where n.noticeSno = :noticeSno")
+    int updateExpsrCnt(Integer noticeSno);
 }

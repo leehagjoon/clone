@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -82,5 +83,10 @@ public class NoticeService {
                 .creatDt(bas.getCreatDt())
                 .expsrCnt(bas.getExpsrCnt())
                 .build();
+    }
+
+    @Transactional
+    public int updateExpsrCnt(Integer noticeSno){
+        return noticeBasRepository.updateExpsrCnt(noticeSno);
     }
 }

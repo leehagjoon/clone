@@ -45,6 +45,7 @@ public class HomeController {
     @GetMapping("/detail/{noticeSno}")
     public String detail(@PathVariable("noticeSno") Integer noticeSno, Model model){
         NoticeDto dto = noticeService.getNoticeDetail(noticeSno);
+        noticeService.updateExpsrCnt(noticeSno);
         model.addAttribute("noticeDto", dto);
 
         return "/detail";
