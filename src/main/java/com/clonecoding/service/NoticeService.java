@@ -30,7 +30,7 @@ public class NoticeService {
 
     public List<NoticeDto> getNoticeList() {
         // repository에서 jpa 기능인 findAll() 로 전체 리스트를 불러온다.
-     List<NoticeBas> noticeBas = noticeBasRepository.findAll();
+     List<NoticeBas> noticeBas = noticeBasRepository.findAllByOrderByNoticeSnoDesc();
         // NoticeDto를 entity화 해서 초기화 시켜준다.
      List<NoticeDto> noticeDtoList = new ArrayList<>();
 

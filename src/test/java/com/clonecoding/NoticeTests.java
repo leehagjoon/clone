@@ -28,8 +28,8 @@ public class NoticeTests {
     @Test
     void save() {
         NoticeBas noticeBas = NoticeBas.builder()
-                .title("1번 게시글 제목")
-                .content("1번 게시글 본문")
+                .title("2번 게시글 제목")
+                .content("2번 게시글 본문")
                 .creatUser("관리자")
                 .creatDt(LocalDateTime.now())
                 .expsrCnt(0)
