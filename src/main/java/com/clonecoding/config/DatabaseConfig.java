@@ -21,7 +21,7 @@ import javax.sql.DataSource;
  * 2023-09-04        hagjoon       최초 생성
  */
 @Configuration
-@PropertySource("classpath:/application.yml")
+@PropertySource("classpath:/application.properties")
 public class DatabaseConfig {
 
     @Bean
