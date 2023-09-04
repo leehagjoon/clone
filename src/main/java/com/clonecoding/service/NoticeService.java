@@ -63,4 +63,24 @@ public class NoticeService {
                 .build();
         return noticeDto;
     }
+
+    public List<NoticeDto> searchList(String keyword){
+        List<NoticeBas> noticeBas = noticeBasRepository.findByTitleContainingOrderByNoticeSnoDesc(keyword);
+        List<NoticeDto> noticeDtoList = new ArrayList<>();
+
+        for(NoticeBas bas : noticeBas){
+            noticeDtoList.add(this.convertEntityToDto(bas));
+        }
+        return noticeDtoList;
+    }
+
+    private NoticeDto convertEntityToDto(NoticeBas bas) {
+        return NoticeDto.builder()
+                .noticeSno(bas.getNoticeSno())
+                .title(bas.getTitle())
+                .creatUser(bas.getCreatUser())
+                .creatDt(bas.getCreatDt())
+                .expsrCnt(bas.getExpsrCnt())
+                .build();
+    }
 }

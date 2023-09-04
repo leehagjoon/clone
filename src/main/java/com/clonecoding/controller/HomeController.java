@@ -1,5 +1,6 @@
 package com.clonecoding.controller;
 
+import com.clonecoding.entity.NoticeBas;
 import com.clonecoding.model.NoticeDto;
 import com.clonecoding.service.NoticeService;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -43,9 +45,16 @@ public class HomeController {
     @GetMapping("/detail/{noticeSno}")
     public String detail(@PathVariable("noticeSno") Integer noticeSno, Model model){
         NoticeDto dto = noticeService.getNoticeDetail(noticeSno);
-
         model.addAttribute("noticeDto", dto);
 
         return "/detail";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(value = "keyword") String keyword,Model model){
+        List<NoticeDto> noticeDtoList = noticeService.searchList(keyword);
+        model.addAttribute("noticeList",noticeDtoList);
+
+        return "/notice";
     }
 }
