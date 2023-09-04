@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * packageName    : com.clonecoding.service
@@ -46,5 +47,20 @@ public class NoticeService {
          noticeDtoList.add(noticeDto);
      }
     return noticeDtoList;
+    }
+
+    public NoticeDto getNoticeDetail(Integer noticeSno) {
+        Optional<NoticeBas> optional = noticeBasRepository.findById(noticeSno);
+        NoticeBas noticeBas = optional.get();
+
+        NoticeDto noticeDto = NoticeDto.builder()
+                .noticeSno(noticeBas.getNoticeSno())
+                .title(noticeBas.getTitle())
+                .creatDt(noticeBas.getCreatDt())
+                .creatUser(noticeBas.getCreatUser())
+                .expsrCnt(noticeBas.getExpsrCnt())
+                .content(noticeBas.getContent())
+                .build();
+        return noticeDto;
     }
 }
