@@ -86,7 +86,7 @@ public class NoticeService {
     }
 
     @Transactional
-    public int updateExpsrCnt(Integer noticeSno){
-        return noticeBasRepository.updateExpsrCnt(noticeSno);
+    public void updateExpsrCnt(Integer noticeSno){
+        noticeBasRepository.updateExpsrCnt(noticeSno);
     }
 }
