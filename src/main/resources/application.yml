@@ -1,0 +1,42 @@
+# ??? ??? ??
+spring:
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://127.0.0.1:3306//jpa?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: k2winner*
+
+
+  # Resource and Thymeleaf Refresh
+  devtools:
+    livereload:
+      enabled: true
+  thymeleaf:
+    cache: false
+
+  # JPA Properties
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    # ??????? ??? ?? SQL?? ??? ??
+    show-sql: true
+    properties:
+      #SQL?? ??? ?? ??
+      hibernate:
+        format_sql: true
+        #??? ?? ??
+        use_sql_comments: true
+server:
+  address: localhost
+  port: 8080
+
+# ?? ??
+logging:
+  level:
+    org.hibernate : info
+
