@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>상세보기</title>
+</head>
+<body>
+<table>
+  <tr>
+    <th>제목</th>
+    <td th:text="${bodoDto.title}"></td>
+  <tr>
+    <th>등록일</th>
+    <td th:text="${#temporals.format(bodoDto.creatDt, 'yyyy-MM-dd HH:mm')}"></td>
+    <th>작성자</th>
+    <td th:text="${bodoDto.creatUser}"></td>
+    <th>조회수</th>
+    <td th:text="${bodoDto.expsrCnt}"></td>
+  </tr>
+</table>
+<br>
+<div>
+<img th:src="${bodoDto.imgUrl}" alt="이미지">
+  </div>
+<p th:text="${bodoDto.subTitle}"></p>
+</body>
+</html>

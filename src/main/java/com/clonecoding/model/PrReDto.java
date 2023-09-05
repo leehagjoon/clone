@@ -1,6 +1,7 @@
 package com.clonecoding.model;
 
 import com.clonecoding.entity.PressReleasBas;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
  * 2023-09-05        hagjoon       최초 생성
  */
 @Data
+@Builder
 public class PrReDto {
 
     private Integer prreSno;

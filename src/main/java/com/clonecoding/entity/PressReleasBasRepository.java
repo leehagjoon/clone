@@ -3,6 +3,8 @@ package com.clonecoding.entity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * packageName    : com.clonecoding.entity
  * fileName       : PressReleasBasRepository
@@ -16,4 +18,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PressReleasBasRepository extends JpaRepository<PressReleasBas, Integer> {
+    List<PressReleasBas> findAllByOrderByPrreSnoDesc();
 }

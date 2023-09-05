@@ -2,7 +2,9 @@ package com.clonecoding.controller;
 
 import com.clonecoding.entity.NoticeBas;
 import com.clonecoding.model.NoticeDto;
+import com.clonecoding.model.PrReDto;
 import com.clonecoding.service.NoticeService;
+import com.clonecoding.service.PrreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,8 @@ import java.util.List;
 public class HomeController {
 
     private final NoticeService noticeService;
+
+    private final PrreService prreService;
 
     @GetMapping("/")
     public String home(){
@@ -64,7 +68,17 @@ public class HomeController {
     }
 
     @GetMapping("/bodotext")
-    public String bodoList(){
+    public String bodoList(Model model){
+        List<PrReDto> prReDtoList = prreService.getBodoList();
+        model.addAttribute("bodoList",prReDtoList);
         return "/bodotext";
+    }
+
+    @GetMapping("/bododetail/{prreSno}")
+    public String bodoDetail(@PathVariable("prreSno") Integer prreSno, Model model){
+        PrReDto dto = prreService.getBodoDetail(prreSno);
+        model.addAttribute("bodoDto",dto);
+
+        return "/bododetail";
     }
 }

@@ -1,8 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>보도자료</title>
+  <meta charset="UTF-8">
+  <title>보도자료</title>
+  <style>
+    ul {
+      list-style-type: none;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 세 개의 열을 생성합니다. */
+      gap: 20px; /* 열과 열 사이의 간격을 조절합니다. */
+    }
+
+    .news-item {
+      margin-bottom: 20px;
+      border: 1px solid #000; /* 1px 두께의 검은색 테두리 추가 */
+    }
+
+    .news-item img {
+      width: 316px;
+      height: 196px;
+      object-fit: cover; /* 이미지 비율 유지하면서 크기 조절 */
+      max-width: 100%; /* 너비 최대값 설정 */
+      max-height: 100%; /* 높이 최대값 설정 */
+      transition: all 0.3s;
+    }
+  </style>
 </head>
 <body>
 <h2>보도자료</h2>
@@ -20,13 +42,15 @@
 </form>
 <div>
   <ul>
-    <li th:each="bodo : ${bodoList}">
+    <li th:each="bodo : ${bodoList}" class="news-item">
       <a th:href="'/bododetail/' + ${bodo.prreSno}">
-        <img th:src="${bodo.imgUrl}" alt="이미지">
-        <h3 th:text="${bodo.title}"></h3>
-        <p th:text="${bodo.subtitle}"></p>
-        <p th:text="${#dates.format(bodo.creatDt, 'yyyy-MM-dd')}"></p>
+        <div>
+          <img th:src="${bodo.imgUrl}" alt="이미지">
+        </div>
+        <h3 th:text="${bodo.title}" style="border: black"></h3>
       </a>
+        <p th:text="${bodo.subTitle}" style="border: black"></p>
+        <p th:text="${#temporals.format(bodo.creatDt, 'yyyy-MM-dd HH:mm')}" style="border: black"></p>
     </li>
   </ul>
 </div>
