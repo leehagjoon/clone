@@ -29,4 +29,5 @@ public interface NoticeBasRepository extends JpaRepository<NoticeBas, Integer> {
     @Modifying //Query 어노테이션에서 작성된 조회를 제외한 데이터의 변경이 있는 삽입,수정,삭제 쿼리 사용시 필요한 어노테이션
     @Query("update NoticeBas n set n.expsrCnt = n.expsrCnt + 1 where n.noticeSno = :noticeSno")
     void updateExpsrCnt(Integer noticeSno);
+
 }

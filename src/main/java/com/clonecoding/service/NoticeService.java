@@ -106,6 +106,7 @@ public class NoticeService {
         return noticeDtoList;
     }
 
+
     private NoticeDto convertEntityToDto(NoticeBas bas) {
         return NoticeDto.builder()
                 .noticeSno(bas.getNoticeSno())

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,7 +56,7 @@ public class HomeController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam(value = "keyword") String keyword,Model model){
+    public String search(@RequestParam(value = "keyword") String keyword, Model model){
         List<NoticeDto> noticeDtoList = noticeService.searchList(keyword);
         model.addAttribute("noticeList",noticeDtoList);
 
