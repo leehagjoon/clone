@@ -62,4 +62,9 @@ public class HomeController {
 
         return "/notice";
     }
+
+    @GetMapping("/bodotext")
+    public String bodoList(){
+        return "/bodotext";
+    }
 }
