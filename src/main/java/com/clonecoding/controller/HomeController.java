@@ -3,7 +3,9 @@ package com.clonecoding.controller;
 import com.clonecoding.entity.NoticeBas;
 import com.clonecoding.model.NoticeDto;
 import com.clonecoding.model.PrReDto;
+import com.clonecoding.model.PromotionDto;
 import com.clonecoding.service.NoticeService;
+import com.clonecoding.service.PromtionService;
 import com.clonecoding.service.PrreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,8 @@ public class HomeController {
     private final NoticeService noticeService;
 
     private final PrreService prreService;
+
+    private final PromtionService promtionService;
 
     @GetMapping("/")
     public String home(){
@@ -80,5 +84,12 @@ public class HomeController {
         model.addAttribute("bodoDto",dto);
 
         return "/bododetail";
+    }
+
+    @GetMapping("/promotion")
+    public String promList(Model model){
+        List<PromotionDto> promotionDtoList = promtionService.getPromList();
+        model.addAttribute("promList",promotionDtoList);
+        return "/promotion";
     }
 }
