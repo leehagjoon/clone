@@ -35,9 +35,12 @@ public class HomeController {
     }
 
     @GetMapping("/notice")
-    public String list(Model model){
-        List<NoticeDto> noticeDtoList = noticeService.getNoticeList();
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "1") Integer pageNum){
+        List<NoticeDto> noticeDtoList = noticeService.getNoticeList(pageNum);
+        Integer[] pageList = noticeService.getPageList(pageNum);
+
         model.addAttribute("noticeList",noticeDtoList);
+        model.addAttribute("pageList",pageList);
 
         return "/notice";
     }
