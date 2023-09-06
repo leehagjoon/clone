@@ -8,6 +8,7 @@ import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -66,5 +67,10 @@ public class PrreService {
                 .subTitle(pressReleasBas.getSubTitle())
                 .build();
         return prReDto;
+    }
+
+    @Transactional
+    public void updateExpsrCnt(Integer prreSno){
+        pressReleasBasRepository.updateExpsrCnt(prreSno);
     }
 }

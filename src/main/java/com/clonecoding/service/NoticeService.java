@@ -96,7 +96,10 @@ public class NoticeService {
         return noticeDto;
     }
 
-    public List<NoticeDto> searchList(String keyword){
+    public List<NoticeDto> searchList(String keyword, Integer pageNum){
+        Page<NoticeBas> pageing = noticeBasRepository
+                .findAll(PageRequest
+                        .of(pageNum -1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "noticeSno")));
         List<NoticeBas> noticeBas = noticeBasRepository.findByTitleContainingOrderByNoticeSnoDesc(keyword);
         List<NoticeDto> noticeDtoList = new ArrayList<>();
 

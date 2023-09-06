@@ -1,6 +1,8 @@
 package com.clonecoding.entity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,4 +21,8 @@ import java.util.List;
 @Repository
 public interface PressReleasBasRepository extends JpaRepository<PressReleasBas, Integer> {
     List<PressReleasBas> findAllByOrderByPrreSnoDesc();
+
+    @Modifying
+    @Query("update PressReleasBas p set p.expsrCnt = p.expsrCnt + 1 where  p.prreSno = :prreSno")
+    void updateExpsrCnt(Integer prreSno);
 }

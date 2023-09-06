@@ -5,7 +5,7 @@
     <title>공지사항</title>
 </head>
 <body>
-<form action="/search" method="get">
+<form th:action="@{/notice/search}" method="get">
   <select name="searchType">
     <option value="">전체</option>
     <option value="title">제목</option>
@@ -53,7 +53,7 @@
     </table>
 <div>
   <span th:each="pageNum : ${pageList}" th:inline="text">
-    <a th:href="@{'/notice?page=' + ${pageNum}}">[[${pageNum}]]</a>
+    <a th:href="@{'/notice?page=' + ${pageNum}}" >[[${pageNum}]]</a>
   </span>
 </div>
 <div>

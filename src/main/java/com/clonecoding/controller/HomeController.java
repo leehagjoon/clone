@@ -63,10 +63,19 @@ public class HomeController {
         return "/detail";
     }
 
-    @GetMapping("/search")
-    public String search(@RequestParam(value = "keyword") String keyword, Model model){
-        List<NoticeDto> noticeDtoList = noticeService.searchList(keyword);
+    @GetMapping("/notice/search")
+    public String search(@RequestParam(value = "keyword") String keyword, Model model,@RequestParam(value = "page", defaultValue = "1")Integer pageNum){
+//        List<NoticeDto> noticeDtoList = noticeService.searchList(keyword, pageNum);
+        Integer[] pageList = noticeService.getPageList(pageNum);
+        List<NoticeDto> noticeDtoList = null;
+        if(keyword == null){
+            noticeDtoList = noticeService.getNoticeList(pageNum);
+        }else{
+            noticeDtoList = noticeService.searchList(keyword, pageNum);
+        }
+
         model.addAttribute("noticeList",noticeDtoList);
+        model.addAttribute("pageList",pageList);
 
         return "/notice";
     }
@@ -81,6 +90,7 @@ public class HomeController {
     @GetMapping("/bododetail/{prreSno}")
     public String bodoDetail(@PathVariable("prreSno") Integer prreSno, Model model){
         PrReDto dto = prreService.getBodoDetail(prreSno);
+        prreService.updateExpsrCnt(prreSno);
         model.addAttribute("bodoDto",dto);
 
         return "/bododetail";
