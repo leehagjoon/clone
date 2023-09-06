@@ -64,14 +64,16 @@ public class HomeController {
     }
 
     @GetMapping("/notice/search")
-    public String search(@RequestParam(value = "keyword") String keyword, Model model,@RequestParam(value = "page", defaultValue = "1")Integer pageNum){
+    public String search(@RequestParam(value = "keyword") String keyword, Model model,
+                         @RequestParam(value = "page", defaultValue = "1")Integer pageNum,
+                         @RequestParam(value = "searchType",required = false) String searchType){
 //        List<NoticeDto> noticeDtoList = noticeService.searchList(keyword, pageNum);
         Integer[] pageList = noticeService.getPageList(pageNum);
         List<NoticeDto> noticeDtoList = null;
-        if(keyword == null){
-            noticeDtoList = noticeService.getNoticeList(pageNum);
-        }else{
+        if(searchType.equals("title") && !keyword.isEmpty()){
             noticeDtoList = noticeService.searchList(keyword, pageNum);
+        }else{
+            noticeDtoList = noticeService.getNoticeList(pageNum);
         }
 
         model.addAttribute("noticeList",noticeDtoList);

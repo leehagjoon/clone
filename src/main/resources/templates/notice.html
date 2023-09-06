@@ -4,13 +4,22 @@
     <meta charset="UTF-8">
     <title>공지사항</title>
 </head>
+<style>
+  table {
+    border-collapse: collapse;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+  }
+</style>
 <body>
 <form th:action="@{/notice/search}" method="get">
-  <select name="searchType">
-    <option value="">전체</option>
-    <option value="title">제목</option>
-  </select>
   <div class="search">
+    <select name="searchType">
+      <option value="all">전체</option>
+      <option value="title">제목</option>
+    </select>
     <label>
       <input name="keyword" type="text" placeholder="검색어를 입력하세요">
     </label>
@@ -52,14 +61,14 @@
       </tbody>
     </table>
 <div>
-  <span th:each="pageNum : ${pageList}" th:inline="text">
+  <span th:if="${pageList.length > 0}" th:each="pageNum : ${pageList}" th:inline="text">
     <a th:href="@{'/notice?page=' + ${pageNum}}" >[[${pageNum}]]</a>
   </span>
 </div>
 <div>
   <a href="/">홈</a>
   <a href="/bodotext">보도자료</a>
-  <a href="/">홍보영상</a>
+  <a href="/promotion">홍보영상</a>
 </div>
 </body>
 </html>

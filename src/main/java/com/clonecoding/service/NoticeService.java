@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -100,10 +101,18 @@ public class NoticeService {
         Page<NoticeBas> pageing = noticeBasRepository
                 .findAll(PageRequest
                         .of(pageNum -1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "noticeSno")));
-        List<NoticeBas> noticeBas = noticeBasRepository.findByTitleContainingOrderByNoticeSnoDesc(keyword);
+//        List<NoticeBas> noticeBas = noticeBasRepository.findByTitleContainingOrderByNoticeSnoDesc(keyword);
+        List<NoticeBas> noticeBas;
+
+        if (StringUtils.isEmpty(keyword)) {
+            noticeBas = pageing.getContent();
+        } else {
+            noticeBas = noticeBasRepository.findByTitleContainingOrderByNoticeSnoDesc(keyword);
+        }
+
         List<NoticeDto> noticeDtoList = new ArrayList<>();
 
-        for(NoticeBas bas : noticeBas){
+        for (NoticeBas bas : noticeBas) {
             noticeDtoList.add(this.convertEntityToDto(bas));
         }
         return noticeDtoList;
