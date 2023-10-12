@@ -104,7 +104,7 @@ public class NoticeService {
 //        List<NoticeBas> noticeBas = noticeBasRepository.findByTitleContainingOrderByNoticeSnoDesc(keyword);
         List<NoticeBas> noticeBas;
 
-        if (StringUtils.isEmpty(keyword)) {
+        if (StringUtils.hasLength(keyword)) {
             noticeBas = pageing.getContent();
         } else {
             noticeBas = noticeBasRepository.findByTitleContainingOrderByNoticeSnoDesc(keyword);
