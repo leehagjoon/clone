@@ -1,10 +1,9 @@
 package com.clonecoding.service;
 
 import com.clonecoding.entity.PressReleasBas;
-import com.clonecoding.entity.PressReleasBasRepository;
+import com.clonecoding.Repository.PressReleasBasRepository;
 import com.clonecoding.model.PrReDto;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

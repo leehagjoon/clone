@@ -1,5 +1,6 @@
-package com.clonecoding.entity;
+package com.clonecoding.Repository;
 
+import com.clonecoding.entity.NoticeBas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

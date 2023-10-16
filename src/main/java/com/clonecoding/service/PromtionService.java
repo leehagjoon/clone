@@ -1,7 +1,7 @@
 package com.clonecoding.service;
 
 import com.clonecoding.entity.PromotionBas;
-import com.clonecoding.entity.PromotionBasRepository;
+import com.clonecoding.Repository.PromotionBasRepository;
 import com.clonecoding.model.PromotionDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

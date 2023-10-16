@@ -1,7 +1,7 @@
 package com.clonecoding.service;
 
 import com.clonecoding.entity.NoticeBas;
-import com.clonecoding.entity.NoticeBasRepository;
+import com.clonecoding.Repository.NoticeBasRepository;
 import com.clonecoding.model.NoticeDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
