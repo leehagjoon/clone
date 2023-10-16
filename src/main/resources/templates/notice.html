@@ -5,13 +5,79 @@
     <title>공지사항</title>
 </head>
 <style>
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+
   table {
+    width: 100%;
     border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 5px;
   }
 
   table, th, td {
-    border: 1px solid black;
+    border: 1px solid #ddd;
   }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #333;
+    color: #fff;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  select, input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  button {
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #555;
+  }
+
+  a {
+    text-decoration: none;
+    color: #333;
+  }
+
+  a:hover {
+    color: #555;
+  }
+
+  .search {
+    margin: 20px 0;
+  }
+
+  .pagination {
+    text-align: center;
+    margin: 20px 0;
+  }
+  </style>
 </style>
 <body>
 <form th:action="@{/notice/search}" method="get">
@@ -23,7 +89,7 @@
     <label>
       <input name="keyword" type="text" placeholder="검색어를 입력하세요">
     </label>
-    <button type="submit">검색</button>
+    <button>검색</button>
   </div>
 </form>
 

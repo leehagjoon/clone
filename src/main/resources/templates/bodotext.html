@@ -4,36 +4,95 @@
   <meta charset="UTF-8">
   <title>보도자료</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    form {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    select, input[type="text"] {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 5px 10px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
     ul {
-      list-style-type: none;
+      list-style: none;
+      padding: 0;
       display: grid;
-      grid-template-columns: repeat(3, 1fr); /* 세 개의 열을 생성합니다. */
-      gap: 20px; /* 열과 열 사이의 간격을 조절합니다. */
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+      justify-content: center;
     }
 
     .news-item {
-      margin-bottom: 20px;
-      border: 1px solid #000; /* 1px 두께의 검은색 테두리 추가 */
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .news-item img {
-      width: 316px;
-      height: 196px;
-      object-fit: cover; /* 이미지 비율 유지하면서 크기 조절 */
-      max-width: 100%; /* 너비 최대값 설정 */
-      max-height: 100%; /* 높이 최대값 설정 */
-      transition: all 0.3s;
+    .news-item a {
+      text-decoration: none;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    h3 {
+      margin: 10px 0;
+      color: #333;
+    }
+
+    p {
+      color: #666;
+    }
+
+    a:hover {
+      color: #555;
     }
   </style>
 </head>
 <body>
 <h2>보도자료</h2>
 <form action="/bodosearch" method="get">
-  <select name="searchType">
-    <option value="">전체</option>
-    <option value="title">제목</option>
-  </select>
-  <div class="search">
+  <div class="search-options">
+    <select name="searchType">
+      <option value="">전체</option>
+      <option value="title">제목</option>
+    </select>
     <label>
       <input name="keyword" type="text" placeholder="검색어를 입력하세요">
     </label>
@@ -47,10 +106,10 @@
         <div>
           <img th:src="${bodo.imgUrl}" alt="이미지">
         </div>
-        <h3 th:text="${bodo.title}" style="border: black"></h3>
+        <h3 th:text="${bodo.title}"></h3>
+        <p th:text="${bodo.subTitle}"></p>
+        <p th:text="${#temporals.format(bodo.creatDt, 'yyyy-MM-dd HH:mm')}"></p>
       </a>
-        <p th:text="${bodo.subTitle}" style="border: black"></p>
-        <p th:text="${#temporals.format(bodo.creatDt, 'yyyy-MM-dd HH:mm')}" style="border: black"></p>
     </li>
   </ul>
 </div>
