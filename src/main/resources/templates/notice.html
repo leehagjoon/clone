@@ -1,84 +1,83 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>공지사항</title>
-</head>
-<style>
+  <meta charset="UTF-8">
+  <title>공지사항</title>
   <style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-  }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
 
-  h1 {
-    text-align: center;
-    color: #333;
-  }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-    border-radius: 5px;
-  }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      border-radius: 5px;
+    }
 
-  table, th, td {
-    border: 1px solid #ddd;
-  }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
 
-  th, td {
-    padding: 10px;
-    text-align: left;
-  }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
 
-  th {
-    background-color: #333;
-    color: #fff;
-  }
+    th {
+      background-color: #333;
+      color: #fff;
+    }
 
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
 
-  select, input[type="text"] {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+    select, input[type="text"] {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-  button {
-    padding: 5px 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+    button {
+      padding: 5px 10px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-  button:hover {
-    background-color: #555;
-  }
+    button:hover {
+      background-color: #555;
+    }
 
-  a {
-    text-decoration: none;
-    color: #333;
-  }
+    a {
+      text-decoration: none;
+      color: #333;
+    }
 
-  a:hover {
-    color: #555;
-  }
+    a:hover {
+      color: #555;
+    }
 
-  .search {
-    margin: 20px 0;
-  }
+    .search {
+      margin: 20px 0;
+      text-align: center;
+    }
 
-  .pagination {
-    text-align: center;
-    margin: 20px 0;
-  }
+    .pagination {
+      text-align: center;
+      margin: 20px 0;
+    }
   </style>
-</style>
+</head>
 <body>
 <form th:action="@{/notice/search}" method="get">
   <div class="search">
@@ -93,48 +92,48 @@
   </div>
 </form>
 
-    <table>
-      <thead>
-      <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>등록일</th>
-        <th>조회수</th>
-      </tr>
-      </thead>
+<table>
+  <thead>
+  <tr>
+    <th>번호</th>
+    <th>제목</th>
+    <th>작성자</th>
+    <th>등록일</th>
+    <th>조회수</th>
+  </tr>
+  </thead>
 
-      <tbody>
-      <tr th:each="notice : ${noticeList}">
-        <td>
-          <span th:text="${notice.noticeSno}"></span>
-        </td>
-        <td>
-          <a th:href="@{'/detail/' + ${notice.noticeSno}}">
-            <span th:text="${notice.title}"></span>
-          </a>
-        </td>
-        <td>
-          <span th:text="${notice.creatUser}"></span>
-        </td>
-        <td>
-          <span th:text="${#temporals.format(notice.creatDt, 'yyyy-MM-dd HH:mm')}"></span>
-        </td>
-        <td>
-          <span th:text="${notice.expsrCnt}"></span>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-<div>
-  <span th:if="${pageList.length > 0}" th:each="pageNum : ${pageList}" th:inline="text">
-    <a th:href="@{'/notice?page=' + ${pageNum}}" >[[${pageNum}]]</a>
-  </span>
-</div>
-<div>
-  <a href="/">홈</a>
-  <a href="/bodotext">보도자료</a>
-  <a href="/promotion">홍보영상</a>
+  <tbody>
+  <tr th:each="notice : ${noticeList}">
+    <td>
+      <span th:text="${notice.noticeSno}"></span>
+    </td>
+    <td>
+      <a th:href="@{'/detail/' + ${notice.noticeSno}}">
+        <span th:text="${notice.title}"></span>
+      </a>
+    </td>
+    <td>
+      <span th:text="${notice.creatUser}"></span>
+    </td>
+    <td>
+      <span th:text="${#temporals.format(notice.creatDt, 'yyyy-MM-dd HH:mm')}"></span>
+    </td>
+    <td>
+      <span th:text="${notice.expsrCnt}"></span>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div class="pagination">
+    <span th:if="${pageList.length > 0}" th:each="pageNum : ${pageList}" th:inline="text">
+        <a th:href="@{'/notice?page=' + ${pageNum}}" >[[${pageNum}]]</a>
+    </span>
+  <div>
+    <a href="/">홈</a>
+    <a href="/bodotext">보도자료</a>
+    <a href="/promotion">홍보영상</a>
+  </div>
 </div>
 </body>
 </html>
