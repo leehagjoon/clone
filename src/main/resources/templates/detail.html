@@ -41,6 +41,7 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         /* 스타일을 적용할 클래스 추가 */
         .back-to-notice {
             display: inline-block;
@@ -57,25 +58,31 @@
         .back-to-notice:hover {
             background-color: #555;
         }
+
+        /* Center the container */
+        .container {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-<table>
-  <tr>
-      <th>제목</th>
-      <td th:text="${noticeDto.title}"></td>
-      <tr>
-      <th>등록일</th>
-      <td th:text="${#temporals.format(noticeDto.creatDt, 'yyyy-MM-dd HH:mm')}"></td>
-      <th>작성자</th>
-      <td th:text="${noticeDto.creatUser}"></td>
-      <th>조회수</th>
-      <td th:text="${noticeDto.expsrCnt}"></td>
-  </tr>
-</table>
-  <p th:text="${noticeDto.content}"></p>
-</body>
-<div>
+<div class="container">
+    <table>
+        <tr>
+            <th>제목</th>
+            <td th:text="${noticeDto.title}"></td>
+        </tr>
+        <tr>
+            <th>등록일</th>
+            <td th:text="${#temporals.format(noticeDto.creatDt, 'yyyy-MM-dd HH:mm')}"></td>
+            <th>작성자</th>
+            <td th:text="${noticeDto.creatUser}"></td>
+            <th>조회수</th>
+            <td th:text="${noticeDto.expsrCnt}"></td>
+        </tr>
+    </table>
+    <p th:text="${noticeDto.content}"></p>
     <a class="back-to-notice" href="/notice">공지사항</a>
 </div>
+</body>
 </html>

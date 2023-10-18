@@ -1,5 +1,6 @@
 package com.clonecoding.controller;
 
+import com.clonecoding.entity.NoticeBas;
 import com.clonecoding.model.NoticeDto;
 import com.clonecoding.service.NoticeService;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class NoticeController {
 
     @GetMapping("/notice")
     public String getNoticeList(Model model){
-        List<NoticeDto> noticeDtoList = noticeService.getNoticeList();
+        List<NoticeBas> noticeDtoList = noticeService.getNoticeList();
         model.addAttribute("noticeList",noticeDtoList);
         return "/notice";
     }

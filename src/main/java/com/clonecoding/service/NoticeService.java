@@ -34,16 +34,10 @@ public class NoticeService {
 
     private final NoticeBasRepository noticeBasRepository;
 
-    public List<NoticeDto> getNoticeList() {
-        // repository에서 jpa 기능인 findAll() 로 전체 리스트를 불러온다.
+    public List<NoticeBas> getNoticeList() {
+        // 최근 등록된 게시물 부터 불러온다.
      List<NoticeBas> noticeBas = noticeBasRepository.findAllByOrderByNoticeSnoDesc();
-        // NoticeDto를 entity화 해서 초기화 시켜준다.
-     List<NoticeDto> noticeDtoList = new ArrayList<>();
-     // for문을 돌려서 entity에 있는 목록과 dto에 있는 모델을 맞춰주고 list에 저장시켜준다.
-     for(NoticeBas bas : noticeBas){
-         noticeDtoList.add(this.convertEntityToDto(bas));
-     }
-    return noticeDtoList;
+    return noticeBas;
     }
 
 
@@ -60,18 +54,6 @@ public class NoticeService {
                 .content(noticeBas.getContent())
                 .build();
         return noticeDto;
-    }
-
-
-
-    private NoticeDto convertEntityToDto(NoticeBas bas) {
-        return NoticeDto.builder()
-                .noticeSno(bas.getNoticeSno())
-                .title(bas.getTitle())
-                .creatUser(bas.getCreatUser())
-                .creatDt(bas.getCreatDt())
-                .expsrCnt(bas.getExpsrCnt())
-                .build();
     }
 
     @Transactional
