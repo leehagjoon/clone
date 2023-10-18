@@ -40,6 +40,11 @@ public class NoticeService {
     return noticeBas;
     }
 
+    public List<NoticeBas> searchTitle(String keyword){
+        List<NoticeBas> noticeBas = noticeBasRepository.findNoticeBasByTitleContaining(keyword);
+        return noticeBas;
+    }
+
 
     public NoticeDto getNoticeDetail(Integer noticeSno) {
         Optional<NoticeBas> optional = noticeBasRepository.findById(noticeSno);

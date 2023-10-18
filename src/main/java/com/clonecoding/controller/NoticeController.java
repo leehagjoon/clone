@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -36,6 +37,20 @@ public class NoticeController {
         model.addAttribute("noticeList",noticeDtoList);
         return "/notice";
     }
+
+    @GetMapping("/notice/search")
+    public String searchNotices(Model model , @RequestParam(value = "keyword",required = false) String keyword, @RequestParam(value = "searchType",required = false) String searchType){
+        List<NoticeBas> searchList = null;
+        if("all".equals(searchType)){
+            searchList = noticeService.getNoticeList();
+        }else if("title".equals(searchType)){
+            searchList = noticeService.searchTitle(keyword);
+        }
+        model.addAttribute("noticeList", searchList);
+
+        return "/notice";
+    }
+
 
     @GetMapping("/detail/{noticeSno}")
     public String getNoticeDetail(Model model, @PathVariable Integer noticeSno){
