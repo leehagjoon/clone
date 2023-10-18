@@ -5,6 +5,7 @@ import com.clonecoding.service.NoticeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -33,5 +34,12 @@ public class NoticeController {
         List<NoticeDto> noticeDtoList = noticeService.getNoticeList();
         model.addAttribute("noticeList",noticeDtoList);
         return "/notice";
+    }
+
+    @GetMapping("/detail/{noticeSno}")
+    public String getNoticeDetail(Model model, @PathVariable Integer noticeSno){
+        noticeService.updateExpsrCnt(noticeSno);
+        model.addAttribute("noticeDto",noticeService.getNoticeDetail(noticeSno));
+        return "/detail";
     }
 }
