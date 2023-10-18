@@ -1,6 +1,8 @@
 package com.clonecoding.Repository;
 
 import com.clonecoding.entity.NoticeBas;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -22,8 +24,6 @@ import java.util.List;
 @Repository
 public interface NoticeBasRepository extends JpaRepository<NoticeBas, Integer> {
 
-    // noticeSno 필드를 기준으로 내림차순으로 정렬된 리스트를 가져옵니다.
-    List<NoticeBas> findAllByOrderByNoticeSnoDesc();
 
     // Containing를 통해 Like 검색이 가능하다.
     List<NoticeBas> findNoticeBasByTitleContaining(String keyword);

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -34,10 +35,8 @@ public class NoticeService {
 
     private final NoticeBasRepository noticeBasRepository;
 
-    public List<NoticeBas> getNoticeList() {
-        // 최근 등록된 게시물 부터 불러온다.
-     List<NoticeBas> noticeBas = noticeBasRepository.findAllByOrderByNoticeSnoDesc();
-    return noticeBas;
+    public Page<NoticeBas> getNoticeList(Pageable pageable) {
+    return noticeBasRepository.findAll(pageable);
     }
 
     public List<NoticeBas> searchTitle(String keyword){

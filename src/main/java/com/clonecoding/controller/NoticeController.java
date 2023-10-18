@@ -3,6 +3,10 @@ package com.clonecoding.controller;
 import com.clonecoding.entity.NoticeBas;
 import com.clonecoding.model.NoticeDto;
 import com.clonecoding.service.NoticeService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +36,8 @@ public class NoticeController {
     }
 
     @GetMapping("/notice")
-    public String getNoticeList(Model model){
-        List<NoticeBas> noticeDtoList = noticeService.getNoticeList();
-        model.addAttribute("noticeList",noticeDtoList);
+    public String getNoticeList(Model model, @PageableDefault(size = 10, sort = "noticeSno",direction = Sort.Direction.DESC)Pageable pageable){
+        model.addAttribute("noticeList",noticeService.getNoticeList(pageable));
         return "/notice";
     }
 
@@ -42,7 +45,7 @@ public class NoticeController {
     public String searchNotices(Model model , @RequestParam(value = "keyword",required = false) String keyword, @RequestParam(value = "searchType",required = false) String searchType){
         List<NoticeBas> searchList = null;
         if("all".equals(searchType)){
-            searchList = noticeService.getNoticeList();
+//            searchList = noticeService.getNoticeList();
         }else if("title".equals(searchType)){
             searchList = noticeService.searchTitle(keyword);
         }

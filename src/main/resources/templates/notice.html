@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>공지사항</title>
   <style>
+    /* 기본 스타일 */
     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
@@ -57,6 +58,7 @@
     button:hover {
       background-color: #555;
     }
+
     .table-link {
       color: #333;
       padding: 5px 10px;
@@ -78,19 +80,53 @@
       margin-right: 10px;
       cursor: pointer;
     }
+
     .nav-link:hover {
       background-color: #555;
     }
 
+    /* 검색 스타일 */
     .search {
       margin: 20px 0;
       text-align: center;
     }
+
+    /* 페이징 스타일 */
     .centered-links {
       text-align: center;
       margin: 20px 0;
     }
 
+    .pagination {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+    }
+
+    .pagination li {
+      margin: 5px;
+    }
+
+    .pagination a {
+      text-decoration: none;
+      padding: 5px 10px;
+      background-color: #333;
+      color: #fff;
+      border-radius: 5px;
+    }
+
+    .pagination a:hover {
+      background-color: #555;
+    }
+
+    .pagination .active {
+      background-color: #555;
+    }
+
+    .pagination .disabled a {
+      background-color: #ccc;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -141,6 +177,19 @@
   </tbody>
 </table>
     <div class="centered-links">
+      <div th:if="${noticeList.totalPages > 1}">
+        <ul class="pagination">
+          <li th:class="${noticeList.number == 0} ? 'disabled' : ''">
+            <a th:href="@{/notice(page=${noticeList.number - 1})}">이전</a>
+          </li>
+          <li th:each="pageNumber : ${#numbers.sequence(0, noticeList.totalPages - 1)}">
+            <a th:href="@{/notice(page=${pageNumber})}" th:text="${pageNumber + 1}" th:class="${pageNumber == noticeList.number} ? 'active' : ''"></a>
+          </li>
+          <li th:class="${noticeList.number == noticeList.totalPages - 1} ? 'disabled' : ''">
+            <a th:href="@{/notice(page=${noticeList.number + 1})}">다음</a>
+          </li>
+        </ul>
+      </div>
       <a href="/" class="nav-link">홈</a>
       <a href="/bodotext" class="nav-link">보도자료</a>
       <a href="/promotion" class="nav-link">홍보영상</a>
