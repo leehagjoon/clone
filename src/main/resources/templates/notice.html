@@ -57,25 +57,40 @@
     button:hover {
       background-color: #555;
     }
-
-    a {
-      text-decoration: none;
+    .table-link {
       color: #333;
+      padding: 5px 10px;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
-    a:hover {
-      color: #555;
+    .table-link:hover {
+      background-color: #f2f2f2;
+    }
+
+    .nav-link {
+      padding: 5px 10px;
+      background-color: #333;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .nav-link:hover {
+      background-color: #555;
     }
 
     .search {
       margin: 20px 0;
       text-align: center;
     }
-
-    .pagination {
+    .centered-links {
       text-align: center;
       margin: 20px 0;
     }
+
   </style>
 </head>
 <body>
@@ -109,7 +124,7 @@
       <span th:text="${notice.noticeSno}"></span>
     </td>
     <td>
-      <a th:href="@{'/detail/' + ${notice.noticeSno}}">
+      <a th:href="@{'/detail/' + ${notice.noticeSno}}"class="table-link">
         <span th:text="${notice.title}"></span>
       </a>
     </td>
@@ -125,15 +140,10 @@
   </tr>
   </tbody>
 </table>
-<div class="pagination">
-    <span th:if="${pageList.length > 0}" th:each="pageNum : ${pageList}" th:inline="text">
-        <a th:href="@{'/notice?page=' + ${pageNum}}" >[[${pageNum}]]</a>
-    </span>
-  <div>
-    <a href="/">홈</a>
-    <a href="/bodotext">보도자료</a>
-    <a href="/promotion">홍보영상</a>
-  </div>
-</div>
+    <div class="centered-links">
+      <a href="/" class="nav-link">홈</a>
+      <a href="/bodotext" class="nav-link">보도자료</a>
+      <a href="/promotion" class="nav-link">홍보영상</a>
+    </div>
 </body>
 </html>
