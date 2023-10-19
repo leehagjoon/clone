@@ -186,7 +186,7 @@
             <a th:href="@{/notice/search(page=${pageNumber}, keyword=${keyword}, searchType=${searchType})}" th:text="${pageNumber + 1}" th:class="${pageNumber == noticeList.number} ? 'active' : ''"></a>
           </li>
           <li th:class="${noticeList.number == noticeList.totalPages - 1} ? 'disabled' : ''">
-            <a th:if="${noticeList.number < noticeList.totalPages - 1}" th:href="@{/notice/search(page=${noticeList.number + 1}, keyword=${keyword}, searchType=${searchType})}">다음</a>
+            <a th:href="@{/notice/search(page=${noticeList.number + 1}, keyword=${keyword}, searchType=${searchType})}">다음</a>
           </li>
         </ul>
       </div>
