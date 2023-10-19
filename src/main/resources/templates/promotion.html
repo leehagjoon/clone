@@ -100,9 +100,9 @@
 </style>
 <body>
 <h2>홍보영상</h2>
-<form action="/promsearch" method="get">
+<form th:action="@{/promotion/promsearch}" method="get">
   <select name="searchType">
-    <option value="">전체</option>
+    <option value="all">전체</option>
     <option value="title">제목</option>
   </select>
   <div class="search">

@@ -30,4 +30,8 @@ public class PromotionService {
     public List<PromotionBas> getPromList() {
         return promotionBasRepository.findAllByOrderByProSnoDesc();
     }
+
+    public List<PromotionBas> searchProm(String keyword){
+        return promotionBasRepository.findPromotionBasByTitleContaining(keyword);
+    }
 }

@@ -23,5 +23,5 @@ import java.util.List;
 public interface PromotionBasRepository extends JpaRepository<PromotionBas,Integer> {
     List<PromotionBas> findAllByOrderByProSnoDesc();
 
-
+    List<PromotionBas> findPromotionBasByTitleContaining(String keyword);
 }
