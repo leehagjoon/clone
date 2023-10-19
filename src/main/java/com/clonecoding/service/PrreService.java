@@ -31,25 +31,8 @@ public class PrreService {
 
     private final PressReleasBasRepository pressReleasBasRepository;
 
-    public List<PrReDto> getBodoList(){
-        List<PressReleasBas> pressReleasBas = pressReleasBasRepository.findAllByOrderByPrreSnoDesc();
-        List<PrReDto> prReDtoList = new ArrayList<>();
-        for(PressReleasBas bas: pressReleasBas){
-            prReDtoList.add(this.convertEntityToDto(bas));
-        }
-        return prReDtoList;
-    }
-
-    private PrReDto convertEntityToDto(PressReleasBas bas){
-        return PrReDto.builder()
-                .prreSno(bas.getPrreSno())
-                .title(bas.getTitle())
-                .subTitle(bas.getSubTitle())
-                .creatDt(bas.getCreatDt())
-                .creatUser(bas.getCreatUser())
-                .expsrCnt(bas.getExpsrCnt())
-                .imgUrl(bas.getImgUrl())
-                .build();
+    public List<PressReleasBas> getBodoList(){
+        return pressReleasBasRepository.findAllByOrderByPrreSnoDesc();
     }
 
     public PrReDto getBodoDetail(Integer prreSno) {
