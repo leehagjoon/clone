@@ -84,6 +84,19 @@
   a:hover {
     color: #555;
   }
+  .nav-link {
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  .nav-link:hover {
+    background-color: #555;
+  }
 </style>
 <body>
 <h2>홍보영상</h2>
@@ -114,9 +127,9 @@
   </ul>
 </div>
 <div>
-  <a href="/">홈</a>
-  <a href="/notice">공지사항</a>
-  <a href="/bodotext">보도자료</a>
+  <a href="/" class="nav-link">홈</a>
+  <a href="/notice" class="nav-link">공지사항</a>
+  <a href="/bodotext" class="nav-link">보도자료</a>
 </div>
 </body>
 </html>
