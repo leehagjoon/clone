@@ -11,6 +11,21 @@
       padding: 20px;
     }
 
+    a {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #333;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+
+    a:hover {
+      background-color: #555; /* Change background color on hover */
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -71,5 +86,9 @@
 <img th:src="${bodoDto.imgUrl}" alt="이미지">
   </div>
 <p th:text="${bodoDto.subTitle}"></p>
+<div>
+  <a href="/">홈</a>
+  <a href="/bodotext">보도자료</a>
+</div>
 </body>
 </html>

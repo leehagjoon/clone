@@ -68,7 +68,8 @@
 
     img {
       max-width: 100%;
-      height: auto;
+      height: 350px;
+      object-fit: cover;
     }
 
     h3 {
@@ -82,6 +83,19 @@
 
     a:hover {
       color: #555;
+    }
+    .nav-link {
+      padding: 5px 10px;
+      background-color: #333;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      background-color: #555;
     }
   </style>
 </head>
@@ -114,9 +128,10 @@
   </ul>
 </div>
 <div>
-  <a href="/">홈</a>
-  <a href="/notice">공지사항</a>
-  <a href="/promotion">홍보영상</a>
+  <a href="/" class="nav-link">홈</a>
+  <a href="/notice" class="nav-link">공지사항</a>
+  <a href="/promotion" class="nav-link">홍보영상</a>
 </div>
+
 </body>
 </html>
