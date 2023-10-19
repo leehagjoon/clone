@@ -177,16 +177,16 @@
   </tbody>
 </table>
     <div class="centered-links">
-      <div th:if="${noticeList.totalPages > 1}">
+      <div th:if="${noticeList != null and noticeList.totalPages > 1}">
         <ul class="pagination">
           <li th:class="${noticeList.number == 0} ? 'disabled' : ''">
-            <a th:href="@{/notice(page=${noticeList.number - 1})}">이전</a>
+            <a th:href="@{/notice/search(page=0, keyword=${keyword}, searchType=${searchType})}">처음</a>
           </li>
           <li th:each="pageNumber : ${#numbers.sequence(0, noticeList.totalPages - 1)}">
-            <a th:href="@{/notice(page=${pageNumber})}" th:text="${pageNumber + 1}" th:class="${pageNumber == noticeList.number} ? 'active' : ''"></a>
+            <a th:href="@{/notice/search(page=${pageNumber}, keyword=${keyword}, searchType=${searchType})}" th:text="${pageNumber + 1}" th:class="${pageNumber == noticeList.number} ? 'active' : ''"></a>
           </li>
           <li th:class="${noticeList.number == noticeList.totalPages - 1} ? 'disabled' : ''">
-            <a th:href="@{/notice(page=${noticeList.number + 1})}">다음</a>
+            <a th:if="${noticeList.number < noticeList.totalPages - 1}" th:href="@{/notice/search(page=${noticeList.number + 1}, keyword=${keyword}, searchType=${searchType})}">다음</a>
           </li>
         </ul>
       </div>

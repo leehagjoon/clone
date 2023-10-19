@@ -42,17 +42,26 @@ public class NoticeController {
     }
 
     @GetMapping("/notice/search")
-    public String searchNotices(Model model , @RequestParam(value = "keyword",required = false) String keyword, @RequestParam(value = "searchType",required = false) String searchType){
-        List<NoticeBas> searchList = null;
-        if("all".equals(searchType)){
-//            searchList = noticeService.getNoticeList();
-        }else if("title".equals(searchType)){
-            searchList = noticeService.searchTitle(keyword);
+    public String searchNotices(Model model,
+                                @RequestParam(value = "keyword", required = false) String keyword,
+                                @RequestParam(value = "searchType", required = false) String searchType,
+                                @RequestParam(value = "page", defaultValue = "0") int page,
+                                @PageableDefault(size = 10, sort = "noticeSno", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<NoticeBas> searchList = null;
+
+        if ("all".equals(searchType)) {
+            searchList = noticeService.getNoticeList(pageable);
+        } else if ("title".equals(searchType)) {
+            searchList = noticeService.searchTitle(keyword, pageable);
         }
+
         model.addAttribute("noticeList", searchList);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchType", searchType);
 
         return "/notice";
     }
+
 
 
     @GetMapping("/detail/{noticeSno}")

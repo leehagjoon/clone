@@ -27,7 +27,7 @@ public class NoticeTests {
 
     @Test
     void save() {
-        for(int i = 1; i<=49; i++) {
+        for(int i = 51; i<=99; i++) {
             NoticeBas noticeBas = NoticeBas.builder()
                     .title(i + "번 게시글 제목")
                     .content(i + "번 게시글 본문")

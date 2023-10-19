@@ -39,9 +39,8 @@ public class NoticeService {
     return noticeBasRepository.findAll(pageable);
     }
 
-    public List<NoticeBas> searchTitle(String keyword){
-        List<NoticeBas> noticeBas = noticeBasRepository.findNoticeBasByTitleContaining(keyword);
-        return noticeBas;
+    public Page<NoticeBas> searchTitle(String keyword, Pageable pageable){
+        return noticeBasRepository.findNoticeBasByTitleContaining(keyword, pageable);
     }
 
 
