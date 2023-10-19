@@ -35,6 +35,10 @@ public class PrreService {
         return pressReleasBasRepository.findAllByOrderByPrreSnoDesc();
     }
 
+    public List<PressReleasBas> searchTitle(String keyword){
+        return pressReleasBasRepository.findPressReleasBasByTitleContaining(keyword);
+    }
+
     public PrReDto getBodoDetail(Integer prreSno) {
         Optional<PressReleasBas> optional = pressReleasBasRepository.findById(prreSno);
         PressReleasBas pressReleasBas = optional.get();

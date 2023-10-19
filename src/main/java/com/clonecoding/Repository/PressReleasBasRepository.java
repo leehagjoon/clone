@@ -23,6 +23,8 @@ import java.util.List;
 public interface PressReleasBasRepository extends JpaRepository<PressReleasBas, Integer> {
     List<PressReleasBas> findAllByOrderByPrreSnoDesc();
 
+    List<PressReleasBas> findPressReleasBasByTitleContaining(String keyword);
+
     @Modifying
     @Query("update PressReleasBas p set p.expsrCnt = p.expsrCnt + 1 where  p.prreSno = :prreSno")
     void updateExpsrCnt(Integer prreSno);

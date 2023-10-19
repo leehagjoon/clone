@@ -101,10 +101,10 @@
 </head>
 <body>
 <h2>보도자료</h2>
-<form action="/bodosearch" method="get">
+<form th:action="@{/bodotext/bodosearch}" method="get">
   <div class="search-options">
     <select name="searchType">
-      <option value="">전체</option>
+      <option value="all">전체</option>
       <option value="title">제목</option>
     </select>
     <label>

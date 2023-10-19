@@ -1,10 +1,14 @@
 package com.clonecoding.controller;
 
+import com.clonecoding.entity.PressReleasBas;
 import com.clonecoding.service.PrreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * packageName    : com.clonecoding.controller
@@ -29,6 +33,22 @@ public class BodoController {
     @GetMapping("/bodotext")
     public String getBodoList(Model model){
         model.addAttribute("bodoList",prreService.getBodoList());
+        return "/bodotext";
+    }
+
+    @GetMapping("/bodotext/bodosearch")
+    public String searchBodo(Model model,
+                             @RequestParam(value = "keyword",required = false) String keyword,
+                             @RequestParam(value = "searchType",required = false) String searchType){
+        List<PressReleasBas> pressReleasBas = null;
+        if("all".equals(searchType)){
+            pressReleasBas = prreService.getBodoList();
+        }else if("title".equals(searchType)){
+            pressReleasBas = prreService.searchTitle(keyword);
+        }
+        model.addAttribute("bodoList", pressReleasBas);
+        model.addAttribute("keyword",keyword);
+        model.addAttribute("searchType",searchType);
         return "/bodotext";
     }
 
