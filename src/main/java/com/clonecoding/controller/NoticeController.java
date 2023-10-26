@@ -25,8 +25,7 @@ import java.util.List;
  * -----------------------------------------------------------
  * 2023-10-16        hagjoon       최초 생성
  */
-@RestController
-@RequestMapping("/api")
+@Controller
 public class NoticeController {
 
     private final NoticeService noticeService;
@@ -36,17 +35,17 @@ public class NoticeController {
     }
 
     @GetMapping("/notice")
-    public ResponseEntity<Page<NoticeBas>> getNoticeList(@PageableDefault(size = 10, sort = "noticeSno",direction = Sort.Direction.DESC)Pageable pageable){
-        Page<NoticeBas> noticeBas = noticeService.getNoticeList(pageable);
-        return ResponseEntity.ok(noticeBas);
+    public String getNoticeList(Model model, @PageableDefault(size = 10, sort = "noticeSno",direction = Sort.Direction.DESC)Pageable pageable){
+        model.addAttribute("noticeList",noticeService.getNoticeList(pageable));
+        return "/notice";
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<Page<NoticeBas>> searchNotices(
-            @RequestParam(value = "keyword", required = false) String keyword,
-            @RequestParam(value = "searchType", required = false) String searchType,
-            @RequestParam(value = "page", defaultValue = "0") int page,
-            @PageableDefault(size = 10, sort = "noticeSno", direction = Sort.Direction.DESC) Pageable pageable) {
+    @GetMapping("/notice/search")
+    public String searchNotices(Model model,
+                                @RequestParam(value = "keyword", required = false) String keyword,
+                                @RequestParam(value = "searchType", required = false) String searchType,
+                                @RequestParam(value = "page", defaultValue = "0") int page,
+                                @PageableDefault(size = 10, sort = "noticeSno", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<NoticeBas> searchList = null;
 
         if ("all".equals(searchType)) {
@@ -55,13 +54,19 @@ public class NoticeController {
             searchList = noticeService.searchTitle(keyword, pageable);
         }
 
-        return ResponseEntity.ok(searchList);
+        model.addAttribute("noticeList", searchList);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchType", searchType);
+
+        return "/notice";
     }
 
-    @GetMapping("/{noticeSno}")
-    public ResponseEntity<NoticeDto> getNoticeDetail(@PathVariable Integer noticeSno) {
+
+
+    @GetMapping("/detail/{noticeSno}")
+    public String getNoticeDetail(Model model, @PathVariable Integer noticeSno){
         noticeService.updateExpsrCnt(noticeSno);
-        NoticeDto notice = noticeService.getNoticeDetail(noticeSno);
-        return ResponseEntity.ok(notice);
+        model.addAttribute("noticeDto",noticeService.getNoticeDetail(noticeSno));
+        return "/detail";
     }
 }
