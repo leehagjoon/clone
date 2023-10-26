@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>공지사항</title>
   <style>
-    /* 기본 스타일 */
+    /* 기존 CSS 스타일 */
     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
@@ -15,38 +15,22 @@
       color: #333;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background-color: #fff;
-      border-radius: 5px;
+    /* ... 기존 스타일 규칙 계속 ... */
+
+    /* 변경된 부분에 추가된 CSS 스타일 */
+    .search {
+      margin: 20px 0;
+      text-align: center;
     }
 
-    table, th, td {
-      border: 1px solid #ddd;
-    }
-
-    th, td {
-      padding: 10px;
-      text-align: left;
-    }
-
-    th {
-      background-color: #333;
-      color: #fff;
-    }
-
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
-    }
-
-    select, input[type="text"] {
+    .search select,
+    .search input[type="text"] {
       padding: 5px;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
 
-    button {
+    .search button {
       padding: 5px 10px;
       background-color: #333;
       color: #fff;
@@ -55,59 +39,26 @@
       cursor: pointer;
     }
 
-    button:hover {
+    .search button:hover {
       background-color: #555;
     }
 
-    .table-link {
-      color: #333;
-      padding: 5px 10px;
-      text-decoration: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .table-link:hover {
-      background-color: #f2f2f2;
-    }
-
-    .nav-link {
-      padding: 5px 10px;
-      background-color: #333;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-      margin-right: 10px;
-      cursor: pointer;
-    }
-
-    .nav-link:hover {
-      background-color: #555;
-    }
-
-    /* 검색 스타일 */
-    .search {
-      margin: 20px 0;
-      text-align: center;
-    }
-
-    /* 페이징 스타일 */
     .centered-links {
       text-align: center;
       margin: 20px 0;
     }
 
-    .pagination {
+    .centered-links .pagination {
       list-style: none;
       display: flex;
       justify-content: center;
     }
 
-    .pagination li {
+    .centered-links .pagination li {
       margin: 5px;
     }
 
-    .pagination a {
+    .centered-links .pagination a {
       text-decoration: none;
       padding: 5px 10px;
       background-color: #333;
@@ -115,15 +66,15 @@
       border-radius: 5px;
     }
 
-    .pagination a:hover {
+    .centered-links .pagination a:hover {
       background-color: #555;
     }
 
-    .pagination .active {
+    .centered-links .pagination .active {
       background-color: #555;
     }
 
-    .pagination .disabled a {
+    .centered-links .pagination .disabled a {
       background-color: #ccc;
       pointer-events: none;
     }
@@ -142,40 +93,9 @@
     <button>검색</button>
   </div>
 </form>
-
-<table>
-  <thead>
-  <tr>
-    <th>번호</th>
-    <th>제목</th>
-    <th>작성자</th>
-    <th>등록일</th>
-    <th>조회수</th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <tr th:each="notice : ${noticeList}">
-    <td>
-      <span th:text="${notice.noticeSno}"></span>
-    </td>
-    <td>
-      <a th:href="@{'/detail/' + ${notice.noticeSno}}"class="table-link">
-        <span th:text="${notice.title}"></span>
-      </a>
-    </td>
-    <td>
-      <span th:text="${notice.creatUser}"></span>
-    </td>
-    <td>
-      <span th:text="${#temporals.format(notice.creatDt, 'yyyy-MM-dd HH:mm')}"></span>
-    </td>
-    <td>
-      <span th:text="${notice.expsrCnt}"></span>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div id="notice-list">
+  <!-- 공지사항 목록이 여기에 동적으로 로드될 것입니다. -->
+</div>
     <div class="centered-links">
       <div th:if="${noticeList != null and noticeList.totalPages > 1}">
         <ul class="pagination">
@@ -197,5 +117,42 @@
       <a href="/bodotext" class="nav-link">보도자료</a>
       <a href="/promotion" class="nav-link">홍보영상</a>
     </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function (){
+    loadNoticeList();
+  });
+  function loadNoticeList() {
+    // RESTful API에서 공지 데이터를 가져오기 위한 AJAX 요청을 수행합니다.
+    $.ajax({
+      url: '/api/notice', // 실제 API 엔드포인트로 교체합니다.
+      method: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        // 받은 데이터를 처리하고 공지 목록을 채웁니다.
+        var noticeList = $('#notice-list');
+        noticeList.empty(); // 기존 콘텐츠 지우기.
+
+        // 데이터를 반복하며 리스트 아이템을 생성합니다.
+        data.content.forEach(function (notice) {
+          var noticeItem = `
+                        <div class="notice-item">
+                            <span class="notice-sno">${notice.noticeSno}</span>
+                            <a href="/detail/${notice.noticeSno}" class="table-link">${notice.title}</a>
+                            <span class="creat-user">${notice.creatUser}</span>
+                            <span class="creat-dt">${notice.creatDt}</span>
+                            <span class="expsr-cnt">${notice.expsrCnt}</span>
+                        </div>
+                    `;
+          noticeList.append(noticeItem);
+        });
+      },
+      error: function (error) {
+        // 오류 처리.
+        console.error('공지 데이터 가져오기 오류: ' + error);
+      }
+    });
+  }
+</script>
 </body>
 </html>

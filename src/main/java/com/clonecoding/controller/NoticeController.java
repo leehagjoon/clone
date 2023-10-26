@@ -7,11 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,7 +25,8 @@ import java.util.List;
  * -----------------------------------------------------------
  * 2023-10-16        hagjoon       최초 생성
  */
-@Controller
+@RestController
+@RequestMapping("/api")
 public class NoticeController {
 
     private final NoticeService noticeService;
@@ -36,17 +36,17 @@ public class NoticeController {
     }
 
     @GetMapping("/notice")
-    public String getNoticeList(Model model, @PageableDefault(size = 10, sort = "noticeSno",direction = Sort.Direction.DESC)Pageable pageable){
-        model.addAttribute("noticeList",noticeService.getNoticeList(pageable));
-        return "/notice";
+    public ResponseEntity<Page<NoticeBas>> getNoticeList(@PageableDefault(size = 10, sort = "noticeSno",direction = Sort.Direction.DESC)Pageable pageable){
+        Page<NoticeBas> noticeBas = noticeService.getNoticeList(pageable);
+        return ResponseEntity.ok(noticeBas);
     }
 
-    @GetMapping("/notice/search")
-    public String searchNotices(Model model,
-                                @RequestParam(value = "keyword", required = false) String keyword,
-                                @RequestParam(value = "searchType", required = false) String searchType,
-                                @RequestParam(value = "page", defaultValue = "0") int page,
-                                @PageableDefault(size = 10, sort = "noticeSno", direction = Sort.Direction.DESC) Pageable pageable) {
+    @GetMapping("/search")
+    public ResponseEntity<Page<NoticeBas>> searchNotices(
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "searchType", required = false) String searchType,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @PageableDefault(size = 10, sort = "noticeSno", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<NoticeBas> searchList = null;
 
         if ("all".equals(searchType)) {
@@ -55,19 +55,13 @@ public class NoticeController {
             searchList = noticeService.searchTitle(keyword, pageable);
         }
 
-        model.addAttribute("noticeList", searchList);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("searchType", searchType);
-
-        return "/notice";
+        return ResponseEntity.ok(searchList);
     }
 
-
-
-    @GetMapping("/detail/{noticeSno}")
-    public String getNoticeDetail(Model model, @PathVariable Integer noticeSno){
+    @GetMapping("/{noticeSno}")
+    public ResponseEntity<NoticeDto> getNoticeDetail(@PathVariable Integer noticeSno) {
         noticeService.updateExpsrCnt(noticeSno);
-        model.addAttribute("noticeDto",noticeService.getNoticeDetail(noticeSno));
-        return "/detail";
+        NoticeDto notice = noticeService.getNoticeDetail(noticeSno);
+        return ResponseEntity.ok(notice);
     }
 }
