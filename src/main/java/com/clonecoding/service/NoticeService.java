@@ -69,7 +69,7 @@ public class NoticeService {
     public void creatWrite(NoticeDto noticeDto){
         NoticeBas noticeBas = noticeDto.toEntity();
         noticeBas.setCreatDt(LocalDateTime.now());
-        noticeBas.setImpYn("Y");
+        noticeBas.setImpYn("N");
         noticeBas.setUseYn("Y");
         noticeBasRepository.save(noticeBas);
     }
