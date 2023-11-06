@@ -82,7 +82,7 @@ public class NoticeController {
         Map<String, String> res = new HashMap<>();
         try{
             noticeService.creatWrite(dto);
-            log.info("?///?///??/?//??//??/??/??");
+            log.info("정보가 잘 저장이 될까나?? : {} ",dto);
             res.put("message","글 등록에 성공");
             return new ResponseEntity<>(res,HttpStatus.OK);
         }catch (Exception e){
