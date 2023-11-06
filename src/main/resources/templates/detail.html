@@ -42,26 +42,84 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* 스타일을 적용할 클래스 추가 */
-        .back-to-notice {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            text-decoration: none;
+        /* 댓글 섹션 스타일링 */
+        .comments-section {
+            background-color: #fff;
+            padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease; /* hover 효과를 위한 전환 효과 설정 */
         }
 
-        /* 링크에 마우스 호버 시 배경색 변경 */
-        .back-to-notice:hover {
+        .comment-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comment-table, .comment-table th, .comment-table td {
+            border: 1px solid #ddd;
+        }
+
+        .comment-table th, .comment-table td {
+            padding: 10px;
+        }
+
+        .comment-table th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .comment-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* 댓글 작성 양식 스타일링 */
+        .comment-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .comment-form input[type="text"],
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .comment-form button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .comment-form button:hover {
             background-color: #555;
         }
-
-        /* Center the container */
-        .container {
+        .back-to-notice {
+            display: block;
+            width: 100px; /* Adjust the width as needed */
+            margin: 0 auto; /* Center the link horizontally */
             text-align: center;
+            background-color: #333333; /* Background color */
+            padding: 10px; /* Adjust padding as needed */
+            border-radius: 5px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .back-to-notice:hover {
+            background-color: #555; /* Adjust hover background color as needed */
         }
     </style>
 </head>
@@ -82,6 +140,35 @@
         </tr>
     </table>
     <p th:text="${noticeDto.content}"></p>
+    <div class="comments-section">
+        <table class="comment-table">
+            <tr>
+                <th>사용자명</th>
+                <th>댓글</th>
+            </tr>
+            <tr>
+                <td>사용자 1</td>
+                <td>댓글 내용을 입력하세요.</td>
+            </tr>
+        </table>
+
+        <!-- 새로운 댓글을 제출할 수 있는 양식 추가 -->
+        <div class="comment-form">
+            <form action="/addComment" method="post">
+                <div>
+                    <label for="username">이름:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="commentText">댓글:</label>
+                    <textarea id="commentText" name="commentText" rows="4" required></textarea>
+                </div>
+                <div>
+                    <button type="submit">댓글 작성</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <a class="back-to-notice" href="/notice">공지사항</a>
 </div>
 </body>
