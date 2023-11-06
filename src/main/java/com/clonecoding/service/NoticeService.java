@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -63,4 +64,14 @@ public class NoticeService {
     public void updateExpsrCnt(Integer noticeSno){
         noticeBasRepository.updateExpsrCnt(noticeSno);
     }
+
+    @Transactional
+    public void creatWrite(NoticeDto noticeDto){
+        NoticeBas noticeBas = noticeDto.toEntity();
+        noticeBas.setCreatDt(LocalDateTime.now());
+        noticeBas.setImpYn("Y");
+        noticeBas.setUseYn("Y");
+        noticeBasRepository.save(noticeBas);
+    }
+
 }

@@ -127,6 +127,19 @@
       background-color: #ccc;
       pointer-events: none;
     }
+
+    /* 글등록 링크 스타일 */
+    a.register-link {
+      padding: 5px 10px;
+      background-color: #333;
+      color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    a.register-link:hover {
+      background-color: #555;
+    }
   </style>
 </head>
 <body>
@@ -142,7 +155,6 @@
     <button>검색</button>
   </div>
 </form>
-
 <table>
   <thead>
   <tr>
@@ -176,6 +188,7 @@
   </tr>
   </tbody>
 </table>
+<a href="/noticewrite" class="register-link">글등록</a>
 <div class="centered-links">
   <div th:if="${noticeList != null and noticeList.totalPages > 1}">
     <ul class="pagination">
@@ -193,7 +206,7 @@
       </li>
     </ul>
   </div>
-  <a href="/" class="nav-link">홈</a>
+  <a href="/home" class="nav-link">홈</a>
   <a href="/bodotext" class="nav-link">보도자료</a>
   <a href="/promotion" class="nav-link">홍보영상</a>
 </div>

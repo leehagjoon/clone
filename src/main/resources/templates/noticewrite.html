@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>글 등록</title>
+</head>
+<style>
+  /* 기본 스타일 */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+
+  form {
+    width: 50%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px 2px #888888;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #555;
+  }
+
+  /* 작성일 스타일 */
+  .create-date {
+    font-size: 12px;
+    color: #999;
+  }
+
+</style>
+<body>
+<form id="noticeForm" th:action="@{/noticewrite/write}" method="post">
+  <div>
+    <label for="title">제목</label>
+    <input type="text" id="title" name="title">
+  </div>
+  <div>
+    <label for="creatUser">작성자</label>
+    <input type="text" id="creatUser" name="creatUser">
+  </div>
+  <div>
+    <label for="content">내용</label>
+    <textarea id="content" name="content"></textarea>
+  </div>
+  <button type="submit" id="submitBtn">글 작성</button>
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#noticeForm").submit(function(event) {
+      event.preventDefault(); // 기본 폼 제출을 막습니다.
+
+      var formData = {
+        title: $("#title").val(),
+        creatUser: $("#creatUser").val(),
+        createDate: $("#creatDt").val(), // 작성일 정보 가져오기
+        content: $("#content").val()
+      };
+
+      $.ajax({
+        type: "POST",
+        url: $(this).attr("action"),
+        data: JSON.stringify(formData), // 데이터를 JSON 문자열로 직렬화
+        contentType: "application/json",
+        dataType: "json", // 기대하는 데이터 형식을 JSON으로 지정합니다.
+        success: function(res) {
+          // 응담 메시지를 확인하고 사용자에게 적절한 피드백을 제공합니다.
+          if (res.message === "글 등록에 성공") {
+            alert("글이 성공적으로 등록되었습니다.");
+            window.location.href = "/notice";
+          } else {
+            alert("글 등록에 실패했습니다.");
+          }
+        },
+        error: function() {
+          alert("글 등록에 실패하였습니다.");
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

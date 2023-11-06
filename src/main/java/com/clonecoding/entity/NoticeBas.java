@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
  * 2023-09-04        hagjoon       최초 생성
  */
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
