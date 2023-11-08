@@ -2,193 +2,206 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>공지사항</title>
+  <title>SPBD</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
-    /* 기본 스타일 */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-    }
-
-    h1 {
+    /* Centered navigation links */
+    .centered-links {
       text-align: center;
-      color: #333;
+      margin-top: 20px;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background-color: #fff;
-      border-radius: 5px;
-    }
-
-    table, th, td {
-      border: 1px solid #ddd;
-    }
-
-    th, td {
-      padding: 10px;
-      text-align: left;
-    }
-
-    th {
+    /* Adjusted styles for the navigation links and search form */
+    .nav-links {
       background-color: #333;
       color: #fff;
+      text-align: center;
+      padding: 10px 0;
     }
 
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
+    .nav-links a {
+      padding: 10px 20px;
+      color: #fff;
+      text-decoration: none;
+      margin: 0 10px;
     }
 
-    select, input[type="text"] {
-      padding: 5px;
+    .nav-links a:hover {
+      background-color: #555;
+    }
+
+    /* Adjusted styles for the search form */
+    .search {
+      display: flex;
+      align-items: center;
+    }
+
+    .search select, .search input[type="text"], .search button {
+      padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      margin: 5px;
+      font-size: 16px;
     }
 
-    button {
-      padding: 5px 10px;
+    .search select {
+      width: auto;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      height: auto; /* Adjust the height to "auto" */
+    }
+
+    /* Updated style for the dropdown options */
+    .search select option {
+      padding: 10px;
+    }
+    .search input[type="text"] {
+      width: 250px;
+      margin-right: 10px; /* Add this line to create space between input and button */
+    }
+
+    .search button {
       background-color: #333;
       color: #fff;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
     }
 
-    button:hover {
+    .search button:hover {
       background-color: #555;
     }
-
-    .table-link {
-      color: #333;
-      padding: 5px 10px;
-      text-decoration: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .table-link:hover {
-      background-color: #f2f2f2;
-    }
-
-    .nav-link {
-      padding: 5px 10px;
+    /* Style for the "글등록" link */
+    .register-link {
+      display: inline-block;
+      padding: 10px 20px;
       background-color: #333;
       color: #fff;
       text-decoration: none;
       border-radius: 5px;
-      margin-right: 10px;
-      cursor: pointer;
+      margin-top: 20px;
+      font-size: 16px;
     }
 
-    .nav-link:hover {
+    .register-link:hover {
       background-color: #555;
     }
 
-    /* 검색 스타일 */
-    .search {
-      margin: 20px 0;
-      text-align: center;
-    }
-
-    /* 페이징 스타일 */
+    /* Style for the pagination section */
     .centered-links {
       text-align: center;
-      margin: 20px 0;
+      margin-top: 20px;
     }
 
     .pagination {
       list-style: none;
       display: flex;
       justify-content: center;
+      align-items: center;
     }
 
     .pagination li {
-      margin: 5px;
+      margin: 0 5px;
     }
 
     .pagination a {
-      text-decoration: none;
       padding: 5px 10px;
-      background-color: #333;
-      color: #fff;
+      border: 1px solid #333;
       border-radius: 5px;
-    }
-
-    .pagination a:hover {
-      background-color: #555;
-    }
-
-    .pagination .active {
-      background-color: #555;
+      text-decoration: none;
+      color: #333;
     }
 
     .pagination .disabled a {
-      background-color: #ccc;
       pointer-events: none;
+      background-color: #ccc;
+      color: #999;
     }
 
-    /* 글등록 링크 스타일 */
-    a.register-link {
-      padding: 5px 10px;
+    .pagination .active a {
       background-color: #333;
       color: #fff;
-      border-radius: 5px;
-      text-decoration: none;
     }
-
-    a.register-link:hover {
-      background-color: #555;
+    .pagination a.active {
+      background-color: #333;
+      color: #fff;
     }
   </style>
 </head>
 <body>
-<form th:action="@{/notice/search}" method="get">
-  <div class="search">
-    <select name="searchType">
-      <option value="all">전체</option>
-      <option value="title">제목</option>
-    </select>
-    <label>
-      <input name="keyword" type="text" placeholder="검색어를 입력하세요">
-    </label>
-    <button>검색</button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">SPBD</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/notice">공지사항</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/bodotext">보도자료</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/promotion">홍보영상</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">로그인</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/signup">회원가입</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/qna">Q&A</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/events">이벤트</a>
+      </li>
+    </ul>
   </div>
-</form>
-<table>
-  <thead>
-  <tr>
-    <th>번호</th>
-    <th>제목</th>
-    <th>작성자</th>
-    <th>등록일</th>
-    <th>조회수</th>
-  </tr>
-  </thead>
+</nav>
+<div class="container">
+  <h1>공지사항</h1>
+  <form th:action="@{/notice/search}" method="get">
+    <div class="search">
+      <select name="searchType" class="form-control">
+        <option value="all">전체</option>
+        <option value="title">제목</option>
+      </select>
+      <input name="keyword" type="text" class="form-control" placeholder="검색어를 입력하세요">
+      <button class="btn btn-primary">검색</button>
+    </div>
+  </form>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>번호</th>
+      <th>제목</th>
+      <th>작성자</th>
+      <th>등록일</th>
+      <th>조회수</th>
+    </tr>
+    </thead>
 
-  <tbody>
-  <tr th:each="notice : ${noticeList}">
-    <td>
-      <span th:text="${notice.noticeSno}"></span>
-    </td>
-    <td>
-      <a th:href="@{'/detail/' + ${notice.noticeSno}}"class="table-link">
-        <span th:text="${notice.title}"></span>
-      </a>
-    </td>
-    <td>
-      <span th:text="${notice.creatUser}"></span>
-    </td>
-    <td>
-      <span th:text="${#temporals.format(notice.creatDt, 'yyyy-MM-dd HH:mm')}"></span>
-    </td>
-    <td>
-      <span th:text="${notice.expsrCnt}"></span>
-    </td>
-  </tr>
-  </tbody>
-</table>
-<a href="/noticewrite" class="register-link">글등록</a>
+    <tbody>
+    <tr th:each="notice : ${noticeList}">
+      <td th:text="${notice.noticeSno}"></td>
+      <td>
+        <a th:href="@{'/detail/' + ${notice.noticeSno}}" class="table-link">
+          <span th:text="${notice.title}"></span>
+        </a>
+      </td>
+      <td th:text="${notice.creatUser}"></td>
+      <td th:text="${#temporals.format(notice.creatDt, 'yyyy-MM-dd HH:mm')}"></td>
+      <td th:text="${notice.expsrCnt}"></td>
+    </tr>
+    </tbody>
+  <a href="/noticewrite" class="register-link">글등록</a>
+  </table>
+</div>
 <div class="centered-links">
   <div th:if="${noticeList != null and noticeList.totalPages > 1}">
     <ul class="pagination">
@@ -206,9 +219,9 @@
       </li>
     </ul>
   </div>
-  <a href="/" class="nav-link">홈</a>
-  <a href="/bodotext" class="nav-link">보도자료</a>
-  <a href="/promotion" class="nav-link">홍보영상</a>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js">
+</script>
 </body>
 </html>

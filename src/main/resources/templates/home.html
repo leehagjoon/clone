@@ -1,41 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            text-align: center;
-            padding: 20px;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        a {
-            text-decoration: none;
-            color: #333;
-            margin: 10px;
-            padding: 10px 20px;
-            border: 2px solid #333;
-            border-radius: 5px;
-            background-color: #fff;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        a:hover {
-            background-color: #333;
-            color: #fff;
-        }
-    </style>
+    <title>SPBD</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1>알림/홍보 게시판</h1>
-<a href="/notice">공지사항</a>
-<a href="/bodotext">보도자료</a>
-<a href="/promotion">홍보영상</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">SPBD</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/notice">공지사항</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/bodotext">보도자료</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/promotion">홍보영상</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">로그인</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/signup">회원가입</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/qna">Q&A</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/events">이벤트</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="jumbotron">
+        <h1 class="display-4">환영합니다!</h1>
+        <p class="lead">우리 홈페이지에 오신 것을 환영합니다. 최신 소식과 정보를 확인하세요.</p>
+        <hr class="my-4">
+        <p>더 많은 내용을 알고 싶다면 아래에서 찾아보세요.</p>
+        <a class="btn btn-primary btn-lg" href="/notice" role="button">공지사항</a>
+        <a class="btn btn-info btn-lg" href="/promotion" role="button">홍보영상</a>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
