@@ -6,16 +6,11 @@ import com.clonecoding.model.NoticeDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -45,11 +40,11 @@ public class NoticeService {
     }
 
 
-    public NoticeDto getNoticeDetail(Integer noticeSno) {
+    public NoticeBas getNoticeDetail(Integer noticeSno) {
         Optional<NoticeBas> optional = noticeBasRepository.findById(noticeSno);
         NoticeBas noticeBas = optional.get();
 
-        NoticeDto noticeDto = NoticeDto.builder()
+        NoticeBas notice = NoticeBas.builder()
                 .noticeSno(noticeBas.getNoticeSno())
                 .title(noticeBas.getTitle())
                 .creatDt(noticeBas.getCreatDt())
@@ -57,7 +52,7 @@ public class NoticeService {
                 .expsrCnt(noticeBas.getExpsrCnt())
                 .content(noticeBas.getContent())
                 .build();
-        return noticeDto;
+        return notice;
     }
 
     @Transactional
@@ -67,11 +62,20 @@ public class NoticeService {
 
     @Transactional
     public void creatWrite(NoticeDto noticeDto){
-        NoticeBas noticeBas = noticeDto.toEntity();
-        noticeBas.setCreatDt(LocalDateTime.now());
-        noticeBas.setImpYn("N");
-        noticeBas.setUseYn("Y");
-        noticeBasRepository.save(noticeBas);
+//        NoticeBas noticeBas = noticeDto.toEntity();
+//        noticeBas.setCreatDt(LocalDateTime.now());
+//        noticeBas.setImpYn("N");
+//        noticeBas.setUseYn("Y");
+        NoticeBas bas = NoticeBas.builder()
+                        .noticeSno(noticeDto.getNoticeSno())
+                        .title(noticeDto.getTitle())
+                        .content(noticeDto.getContent())
+                        .creatUser(noticeDto.getCreatUser())
+                        .creatDt(LocalDateTime.now())
+                        .impYn(noticeDto.getImpYn())
+                        .useYn(noticeDto.getUseYn())
+                        .build();
+        noticeBasRepository.save(bas);
     }
 
 }

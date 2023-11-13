@@ -17,12 +17,9 @@ import java.time.LocalDateTime;
  * 2023-09-04        hagjoon       최초 생성
  */
 @Getter
-@Setter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "notice_bas")
-@AllArgsConstructor
 public class NoticeBas {
 
     @Id
@@ -43,11 +40,30 @@ public class NoticeBas {
     private LocalDateTime creatDt;
 
     @Column(name = "EXPSR_CNT")
-    private int expsrCnt;
+    private Integer expsrCnt;
 
     @Column(name = "USE_YN")
     private String useYn;
 
     @Column(name = "IMP_YN")
     private String impYn;
+
+    @Builder
+    public NoticeBas(Integer noticeSno,
+                     String title,
+                     String content,
+                     String creatUser,
+                     LocalDateTime creatDt,
+                     Integer expsrCnt,
+                     String useYn,
+                     String impYn){
+        this.noticeSno = noticeSno;
+        this.title = title;
+        this.content = content;
+        this.creatDt = LocalDateTime.now();
+        this.expsrCnt = 0;
+        this.creatUser = creatUser;
+        this.useYn = "Y";
+        this.impYn = "N";
+    }
 }

@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
  * 2023-09-04        hagjoon       최초 생성
  */
 @Data
-@Builder
 public class NoticeDto {
 
     private Integer noticeSno;
@@ -37,9 +36,9 @@ public class NoticeDto {
     private LocalDateTime creatDt;
 
     private int expsrCnt;
-
+    @Builder
     public NoticeBas toEntity(){
-        NoticeBas noticeBas = NoticeBas.builder()
+        return NoticeBas.builder()
                 .noticeSno(noticeSno)
                 .title(title)
                 .content(content)
@@ -49,6 +48,5 @@ public class NoticeDto {
                 .creatDt(creatDt)
                 .expsrCnt(expsrCnt)
                 .build();
-        return noticeBas;
     }
 }
