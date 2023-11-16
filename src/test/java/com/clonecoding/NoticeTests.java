@@ -1,7 +1,7 @@
 package com.clonecoding;
 
-import com.clonecoding.entity.NoticeBas;
-import com.clonecoding.Repository.NoticeBasRepository;
+import com.clonecoding.dev.jpa.entity.NoticeBas;
+import com.clonecoding.dev.jpa.repository.NoticeBasRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

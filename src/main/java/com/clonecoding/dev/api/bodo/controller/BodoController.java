@@ -1,7 +1,7 @@
-package com.clonecoding.controller;
+package com.clonecoding.dev.api.bodo.controller;
 
-import com.clonecoding.entity.PressReleasBas;
-import com.clonecoding.service.PrreService;
+import com.clonecoding.dev.api.bodo.service.PrreService;
+import com.clonecoding.dev.jpa.entity.PressReleasBas;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

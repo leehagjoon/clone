@@ -1,4 +1,4 @@
-package com.clonecoding.config;
+package com.clonecoding.dev.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.context.annotation.Bean;

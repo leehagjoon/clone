@@ -1,4 +1,4 @@
-package com.clonecoding.entity;
+package com.clonecoding.dev.jpa.entity;
 
 import lombok.*;
 

@@ -1,7 +1,7 @@
-package com.clonecoding.service;
+package com.clonecoding.dev.api.promotion.service;
 
-import com.clonecoding.entity.PromotionBas;
-import com.clonecoding.Repository.PromotionBasRepository;
+import com.clonecoding.dev.jpa.entity.PromotionBas;
+import com.clonecoding.dev.jpa.repository.PromotionBasRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

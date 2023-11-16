@@ -1,9 +1,8 @@
-package com.clonecoding.model;
+package com.clonecoding.dev.api.notice.model;
 
-import com.clonecoding.entity.NoticeBas;
+import com.clonecoding.dev.jpa.entity.NoticeBas;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +18,7 @@ import java.time.LocalDateTime;
  * 2023-09-04        hagjoon       최초 생성
  */
 @Data
-public class NoticeDto {
+public class NoticeModel {
 
     private Integer noticeSno;
 

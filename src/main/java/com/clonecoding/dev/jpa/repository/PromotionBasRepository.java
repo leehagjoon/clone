@@ -1,9 +1,7 @@
-package com.clonecoding.Repository;
+package com.clonecoding.dev.jpa.repository;
 
-import com.clonecoding.entity.PromotionBas;
+import com.clonecoding.dev.jpa.entity.PromotionBas;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

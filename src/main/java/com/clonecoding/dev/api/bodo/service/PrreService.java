@@ -1,14 +1,13 @@
-package com.clonecoding.service;
+package com.clonecoding.dev.api.bodo.service;
 
-import com.clonecoding.entity.PressReleasBas;
-import com.clonecoding.Repository.PressReleasBasRepository;
-import com.clonecoding.model.PrReDto;
+import com.clonecoding.dev.jpa.entity.PressReleasBas;
+import com.clonecoding.dev.jpa.repository.PressReleasBasRepository;
+import com.clonecoding.dev.api.bodo.model.PrReModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,11 +38,11 @@ public class PrreService {
         return pressReleasBasRepository.findPressReleasBasByTitleContaining(keyword);
     }
 
-    public PrReDto getBodoDetail(Integer prreSno) {
+    public PrReModel getBodoDetail(Integer prreSno) {
         Optional<PressReleasBas> optional = pressReleasBasRepository.findById(prreSno);
         PressReleasBas pressReleasBas = optional.get();
 
-        PrReDto prReDto = PrReDto.builder()
+        PrReModel prReModel = PrReModel.builder()
                 .prreSno(pressReleasBas.getPrreSno())
                 .title(pressReleasBas.getTitle())
                 .creatDt(pressReleasBas.getCreatDt())
@@ -52,7 +51,7 @@ public class PrreService {
                 .imgUrl(pressReleasBas.getImgUrl())
                 .subTitle(pressReleasBas.getSubTitle())
                 .build();
-        return prReDto;
+        return prReModel;
     }
 
     @Transactional

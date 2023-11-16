@@ -1,8 +1,8 @@
-package com.clonecoding.service;
+package com.clonecoding.dev.api.notice.service;
 
-import com.clonecoding.entity.NoticeBas;
-import com.clonecoding.Repository.NoticeBasRepository;
-import com.clonecoding.model.NoticeDto;
+import com.clonecoding.dev.api.notice.model.NoticeModel;
+import com.clonecoding.dev.jpa.entity.NoticeBas;
+import com.clonecoding.dev.jpa.repository.NoticeBasRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -61,19 +61,19 @@ public class NoticeService {
     }
 
     @Transactional
-    public void creatWrite(NoticeDto noticeDto){
+    public void creatWrite(NoticeModel noticeModel){
 //        NoticeBas noticeBas = noticeDto.toEntity();
 //        noticeBas.setCreatDt(LocalDateTime.now());
 //        noticeBas.setImpYn("N");
 //        noticeBas.setUseYn("Y");
         NoticeBas bas = NoticeBas.builder()
-                        .noticeSno(noticeDto.getNoticeSno())
-                        .title(noticeDto.getTitle())
-                        .content(noticeDto.getContent())
-                        .creatUser(noticeDto.getCreatUser())
+                        .noticeSno(noticeModel.getNoticeSno())
+                        .title(noticeModel.getTitle())
+                        .content(noticeModel.getContent())
+                        .creatUser(noticeModel.getCreatUser())
                         .creatDt(LocalDateTime.now())
-                        .impYn(noticeDto.getImpYn())
-                        .useYn(noticeDto.getUseYn())
+                        .impYn(noticeModel.getImpYn())
+                        .useYn(noticeModel.getUseYn())
                         .build();
         noticeBasRepository.save(bas);
     }

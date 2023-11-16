@@ -1,4 +1,4 @@
-package com.clonecoding.entity;
+package com.clonecoding.dev.jpa.entity;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 /**
  * packageName    : com.clonecoding.entity
- * fileName       : PromotionBas
+ * fileName       : PressReleasBas
  * author         : hagjoon
  * date           : 2023-09-05
  * description    :
@@ -20,14 +20,14 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "promotion_bas")
+@Table(name = "press_releas_bas")
 @AllArgsConstructor
-public class PromotionBas {
+public class PressReleasBas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PRO_SNO")
-    private Integer proSno;
+    @Column(name = "PRRE_SNO")
+    private Integer prreSno;
 
     @Column(name = "TITLE")
     private String title;
@@ -38,8 +38,11 @@ public class PromotionBas {
     @Column(name = "CREAT_DT")
     private LocalDateTime creatDt;
 
-    @Column(name = "LINK_URL")
-    private String linkUrl;
+    @Column(name = "CREAT_USER")
+    private String creatUser;
+
+    @Column(name = "EXPSR_CNT")
+    private int expsrCnt;
 
     @Column(name = "IMG_URL")
     private String imgUrl;

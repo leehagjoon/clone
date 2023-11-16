@@ -1,4 +1,4 @@
-package com.clonecoding.config;
+package com.clonecoding.dev.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

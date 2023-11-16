@@ -1,6 +1,6 @@
-package com.clonecoding.model;
+package com.clonecoding.dev.api.promotion.model;
 
-import com.clonecoding.entity.PressReleasBas;
+import com.clonecoding.dev.jpa.entity.PromotionBas;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 /**
  * packageName    : com.clonecoding.model
- * fileName       : PrReDto
+ * fileName       : PromotionDto
  * author         : hagjoon
  * date           : 2023-09-05
  * description    :
@@ -19,9 +19,9 @@ import java.time.LocalDateTime;
  */
 @Data
 @Builder
-public class PrReDto {
+public class PromotionModel {
 
-    private Integer prreSno;
+    private Integer proSno;
 
     private String title;
 
@@ -29,22 +29,19 @@ public class PrReDto {
 
     private LocalDateTime creatDt;
 
-    private String creatUser;
-
-    private int expsrCnt;
+    private String linkUrl;
 
     private String imgUrl;
 
-    public PressReleasBas toentity(){
-        PressReleasBas pressReleasBas = PressReleasBas.builder()
-                .prreSno(prreSno)
+    public PromotionBas toentity(){
+        PromotionBas promotionBas = PromotionBas.builder()
+                .proSno(proSno)
                 .title(title)
                 .subTitle(subTitle)
                 .creatDt(creatDt)
-                .creatUser(creatUser)
-                .expsrCnt(expsrCnt)
+                .linkUrl(linkUrl)
                 .imgUrl(imgUrl)
                 .build();
-        return pressReleasBas;
+        return promotionBas;
     }
 }

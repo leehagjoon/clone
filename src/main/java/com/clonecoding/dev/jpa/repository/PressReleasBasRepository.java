@@ -1,6 +1,6 @@
-package com.clonecoding.Repository;
+package com.clonecoding.dev.jpa.repository;
 
-import com.clonecoding.entity.PressReleasBas;
+import com.clonecoding.dev.jpa.entity.PressReleasBas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

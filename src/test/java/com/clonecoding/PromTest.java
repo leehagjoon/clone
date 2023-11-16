@@ -1,7 +1,7 @@
 package com.clonecoding;
 
-import com.clonecoding.entity.PromotionBas;
-import com.clonecoding.Repository.PromotionBasRepository;
+import com.clonecoding.dev.jpa.entity.PromotionBas;
+import com.clonecoding.dev.jpa.repository.PromotionBasRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

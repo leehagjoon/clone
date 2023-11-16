@@ -1,4 +1,4 @@
-package com.clonecoding.controller;
+package com.clonecoding.dev.api.main.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

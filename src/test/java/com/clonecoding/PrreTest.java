@@ -1,7 +1,7 @@
 package com.clonecoding;
 
-import com.clonecoding.entity.PressReleasBas;
-import com.clonecoding.Repository.PressReleasBasRepository;
+import com.clonecoding.dev.jpa.entity.PressReleasBas;
+import com.clonecoding.dev.jpa.repository.PressReleasBasRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
