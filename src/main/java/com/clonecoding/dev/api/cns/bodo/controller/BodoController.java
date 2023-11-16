@@ -1,6 +1,6 @@
-package com.clonecoding.dev.api.bodo.controller;
+package com.clonecoding.dev.api.cns.bodo.controller;
 
-import com.clonecoding.dev.api.bodo.service.PrreService;
+import com.clonecoding.dev.api.cns.bodo.service.PrreService;
 import com.clonecoding.dev.jpa.entity.PressReleasBas;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

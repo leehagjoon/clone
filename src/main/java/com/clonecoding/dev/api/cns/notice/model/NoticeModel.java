@@ -1,4 +1,4 @@
-package com.clonecoding.dev.api.notice.model;
+package com.clonecoding.dev.api.cns.notice.model;
 
 import com.clonecoding.dev.jpa.entity.NoticeBas;
 import lombok.Builder;

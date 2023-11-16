@@ -1,4 +1,4 @@
-package com.clonecoding.dev.api.promotion.service;
+package com.clonecoding.dev.api.cns.promotion.service;
 
 import com.clonecoding.dev.jpa.entity.PromotionBas;
 import com.clonecoding.dev.jpa.repository.PromotionBasRepository;

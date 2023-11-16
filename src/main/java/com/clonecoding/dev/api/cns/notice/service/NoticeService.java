@@ -1,6 +1,6 @@
-package com.clonecoding.dev.api.notice.service;
+package com.clonecoding.dev.api.cns.notice.service;
 
-import com.clonecoding.dev.api.notice.model.NoticeModel;
+import com.clonecoding.dev.api.cns.notice.model.NoticeModel;
 import com.clonecoding.dev.jpa.entity.NoticeBas;
 import com.clonecoding.dev.jpa.repository.NoticeBasRepository;
 import lombok.RequiredArgsConstructor;

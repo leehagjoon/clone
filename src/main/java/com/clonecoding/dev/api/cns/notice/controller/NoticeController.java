@@ -1,8 +1,8 @@
-package com.clonecoding.dev.api.notice.controller;
+package com.clonecoding.dev.api.cns.notice.controller;
 
-import com.clonecoding.dev.api.notice.service.NoticeService;
+import com.clonecoding.dev.api.cns.notice.service.NoticeService;
 import com.clonecoding.dev.jpa.entity.NoticeBas;
-import com.clonecoding.dev.api.notice.model.NoticeModel;
+import com.clonecoding.dev.api.cns.notice.model.NoticeModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

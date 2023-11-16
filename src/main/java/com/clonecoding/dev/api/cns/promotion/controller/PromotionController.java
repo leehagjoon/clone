@@ -1,7 +1,7 @@
-package com.clonecoding.dev.api.promotion.controller;
+package com.clonecoding.dev.api.cns.promotion.controller;
 
 import com.clonecoding.dev.jpa.entity.PromotionBas;
-import com.clonecoding.dev.api.promotion.service.PromotionService;
+import com.clonecoding.dev.api.cns.promotion.service.PromotionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

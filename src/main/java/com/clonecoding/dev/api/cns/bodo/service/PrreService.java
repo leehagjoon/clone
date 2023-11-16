@@ -1,8 +1,8 @@
-package com.clonecoding.dev.api.bodo.service;
+package com.clonecoding.dev.api.cns.bodo.service;
 
 import com.clonecoding.dev.jpa.entity.PressReleasBas;
 import com.clonecoding.dev.jpa.repository.PressReleasBasRepository;
-import com.clonecoding.dev.api.bodo.model.PrReModel;
+import com.clonecoding.dev.api.cns.bodo.model.PrReModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
