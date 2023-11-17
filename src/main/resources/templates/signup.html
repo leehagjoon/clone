@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <style>
         body {
             background-color: #f8f9fa;
@@ -47,27 +48,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/notice">공지사항</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/bodotext">보도자료</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/promotion">홍보영상</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/login">로그인</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/signup">회원가입</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/qna">Q&A</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/events">이벤트</a>
-            </li>
+            <!-- 나머지 메뉴 항목들 -->
         </ul>
     </div>
 </nav>
@@ -92,23 +73,24 @@
             </div>
 
             <div class="form-group">
-                <label for="birthDay">생년월일</label>
-                <input type="text" class="form-control" id="birthDay" name="birthDay" required>
-            </div>
-
-            <div class="form-group">
                 <label for="nickName">닉네임</label>
                 <input type="text" class="form-control" id="nickName" name="nickName" required>
             </div>
 
             <div class="form-group">
                 <label for="hpNo">휴대폰번호</label>
-                <input type="text" class="form-control" id="hpNo" name="hpNo" required>
+                <input type="text" class="form-control" id="hpNo" name="hpNo" placeholder="010-1234-5678" required>
+                <small id="hpNoHelp" class="form-text text-muted"></small>
             </div>
 
             <div class="form-group">
                 <label for="genderCd">성별</label>
                 <input type="text" class="form-control" id="genderCd" name="genderCd" required>
+            </div>
+
+            <div class="form-group">
+                <label for="birthDay">생년월일</label>
+                <input type="date" class="form-control datepicker" id="birthDay" name="birthDay" required>
             </div>
 
             <button type="button" class="btn btn-primary" id="signupButton">가입하기</button>
@@ -119,17 +101,40 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
     $(document).ready(function () {
+        $(".datepicker").datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true
+        });
+
+        $("#hpNo").on('input', function () {
+            var inputValue = $(this).val().replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
+            var formattedValue = formatPhoneNumber(inputValue);
+
+            if (formattedValue.length > 13) {
+                formattedValue = formattedValue.slice(0, 13);
+            }
+
+            $(this).val(formattedValue);
+
+            var isValid = /^\d{3}-\d{4}-\d{4}$/.test(formattedValue) && formattedValue.length === 13;
+            var helpText = isValid ? '' : '휴대폰 번호 형식이 올바르지 않습니다 (010-1234-5678).';
+
+            $("#hpNoHelp").text(helpText);
+        });
+
         $("#signupButton").click(function () {
             var formData = {
                 memberId: $("#memberId").val(),
                 memberPw: $("#memberPw").val(),
                 memberName: $("#memberName").val(),
-                birthDay: $("#birthDay").val(),
                 nickName: $("#nickName").val(),
                 hpNo: $("#hpNo").val(),
-                genderCd: $("#genderCd").val()
+                genderCd: $("#genderCd").val(),
+                birthDay: $("#birthDay").val()
             };
 
             $.ajax({
@@ -149,6 +154,11 @@
                 }
             });
         });
+
+        function formatPhoneNumber(value) {
+            var formatted = value.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+            return formatted;
+        }
     });
 </script>
 </body>
