@@ -30,6 +30,7 @@ import java.util.Map;
  */
 @Controller
 @Slf4j
+@RequestMapping(value = "/api/cns")
 public class NoticeController {
 
     private final NoticeService noticeService;
