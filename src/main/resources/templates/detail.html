@@ -128,18 +128,18 @@
     <table>
         <tr>
             <th>제목</th>
-            <td th:text="${noticeModel.title}"></td>
+            <td th:text="${noticeDto.title}"></td>
         </tr>
         <tr>
             <th>등록일</th>
-            <td th:text="${#temporals.format(noticeModel.creatDt, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${#temporals.format(noticeDto.creatDt, 'yyyy-MM-dd HH:mm')}"></td>
             <th>작성자</th>
-            <td th:text="${noticeModel.creatUser}"></td>
+            <td th:text="${noticeDto.creatUser}"></td>
             <th>조회수</th>
-            <td th:text="${noticeModel.expsrCnt}"></td>
+            <td th:text="${noticeDto.expsrCnt}"></td>
         </tr>
     </table>
-    <p th:text="${noticeModel.content}"></p>
+    <p th:text="${noticeDto.content}"></p>
     <div class="comments-section">
         <table class="comment-table">
             <tr>
@@ -169,7 +169,7 @@
             </form>
         </div>
     </div>
-    <a class="back-to-notice" href="/notice">공지사항</a>
+    <a class="back-to-notice" href="/api/cns/notice">공지사항</a>
 </div>
 </body>
 </html>

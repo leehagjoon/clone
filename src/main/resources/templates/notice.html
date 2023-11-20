@@ -165,7 +165,7 @@
 </nav>
 <div class="container">
   <h1>공지사항</h1>
-  <form th:action="@{/notice/search}" method="get">
+  <form th:action="@{/api/cns/notice/search}" method="get">
     <div class="search">
       <select name="searchType" class="form-control">
         <option value="all">전체</option>
@@ -190,7 +190,7 @@
     <tr th:each="notice : ${noticeList}">
       <td th:text="${notice.noticeSno}"></td>
       <td>
-        <a th:href="@{'/detail/' + ${notice.noticeSno}}" class="table-link">
+        <a th:href="@{'/api/cns/detail/' + ${notice.noticeSno}}" class="table-link">
           <span th:text="${notice.title}"></span>
         </a>
       </td>
@@ -199,24 +199,30 @@
       <td th:text="${notice.expsrCnt}"></td>
     </tr>
     </tbody>
-  <a href="/noticewrite" class="register-link">글등록</a>
+  <a href="/api/cns/noticewrite" class="register-link">글등록</a>
   </table>
 </div>
 <div class="centered-links">
   <div th:if="${noticeList != null and noticeList.totalPages > 1}">
     <ul class="pagination">
-      <li th:class="${noticeList.number == 0 ? 'disabled' : ''}">
-        <a th:if="${searchType != null and keyword != null}" th:href="@{/notice/search(page=${noticeList.number - 1}, keyword=${keyword}, searchType=${searchType})}">이전</a>
-        <a th:unless="${searchType != null and keyword != null}" th:href="@{/notice(page=${noticeList.number - 1})}">이전</a>
+      <!-- 이전 페이지 링크 -->
+      <li th:class="${noticeList.number == 0} ? 'disabled' : ''">
+        <a th:if="${searchType != null and keyword != null}" th:href="@{/api/cns/notice/search(page=${noticeList.number - 1}, keyword=${keyword}, searchType=${searchType})}">이전</a>
+        <a th:unless="${searchType != null and keyword != null}" th:href="@{/api/cns/notice(page=${noticeList.number - 1})}">이전</a>
       </li>
+
+      <!-- 페이지 번호 링크 -->
       <li th:each="pageNumber : ${#numbers.sequence(0, noticeList.totalPages - 1)}">
-        <a th:if="${searchType != null and keyword != null}" th:href="@{/notice/search(page=${pageNumber}, keyword=${keyword}, searchType=${searchType})}" th:text="${pageNumber + 1}" th:class="${pageNumber == noticeList.number} ? 'active' : ''"></a>
-        <a th:unless="${searchType != null and keyword != null}" th:href="@{/notice(page=${pageNumber})}" th:text="${pageNumber + 1}" th:class="${pageNumber == noticeList.number} ? 'active' : ''"></a>
+        <a th:if="${searchType != null and keyword != null}" th:href="@{/api/cns/notice/search(page=${pageNumber}, keyword=${keyword}, searchType=${searchType})}" th:text="${pageNumber + 1}" th:class="${pageNumber == noticeList.number} ? 'active' : ''"></a>
+        <a th:unless="${searchType != null and keyword != null}" th:href="@{/api/cns/notice(page=${pageNumber})}" th:text="${pageNumber + 1}" th:class="${pageNumber == noticeList.number} ? 'active' : ''"></a>
       </li>
+
+      <!-- 다음 페이지 링크 -->
       <li th:class="${noticeList.number == noticeList.totalPages - 1} ? 'disabled' : ''">
-        <a th:if="${searchType != null and keyword != null}" th:href="@{/notice/search(page=${noticeList.number + 1}, keyword=${keyword}, searchType=${searchType})}">다음</a>
-        <a th:unless="${searchType != null and keyword != null}" th:href="@{/notice(page=${noticeList.number + 1})}">다음</a>
+        <a th:if="${searchType != null and keyword != null}" th:href="@{/api/cns/notice/search(page=${noticeList.number + 1}, keyword=${keyword}, searchType=${searchType})}">다음</a>
+        <a th:unless="${searchType != null and keyword != null}" th:href="@{/api/cns/notice(page=${noticeList.number + 1})}">다음</a>
       </li>
+
     </ul>
   </div>
 </div>

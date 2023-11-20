@@ -41,18 +41,8 @@ public class NoticeService {
 
 
     public NoticeBas getNoticeDetail(Integer noticeSno) {
-        Optional<NoticeBas> optional = noticeBasRepository.findById(noticeSno);
-        NoticeBas noticeBas = optional.get();
-
-        NoticeBas notice = NoticeBas.builder()
-                .noticeSno(noticeBas.getNoticeSno())
-                .title(noticeBas.getTitle())
-                .creatDt(noticeBas.getCreatDt())
-                .creatUser(noticeBas.getCreatUser())
-                .expsrCnt(noticeBas.getExpsrCnt())
-                .content(noticeBas.getContent())
-                .build();
-        return notice;
+       Optional<NoticeBas> optional = noticeBasRepository.findById(noticeSno);
+       return optional.orElse(null);
     }
 
     @Transactional

@@ -42,7 +42,7 @@ public class NoticeController {
     @GetMapping("/notice")
     public String getNoticeList(Model model, @PageableDefault(size = 10, sort = "noticeSno",direction = Sort.Direction.DESC)Pageable pageable){
         model.addAttribute("noticeList",noticeService.getNoticeList(pageable));
-        return "/notice";
+        return "notice";
     }
 
     @GetMapping("/notice/search")
@@ -63,14 +63,14 @@ public class NoticeController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("searchType", searchType);
 
-        return "/notice";
+        return "notice";
     }
 
     @GetMapping("/detail/{noticeSno}")
     public String getNoticeDetail(Model model, @PathVariable Integer noticeSno) {
         noticeService.updateExpsrCnt(noticeSno);
         model.addAttribute("noticeDto", noticeService.getNoticeDetail(noticeSno));
-        return "/detail";
+        return "detail";
     }
 
     @GetMapping("/noticewrite")
