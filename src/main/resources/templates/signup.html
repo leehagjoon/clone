@@ -107,8 +107,15 @@
             </div>
 
             <div class="form-group">
-                <label for="genderCd">성별</label>
-                <input type="text" class="form-control" id="genderCd" name="genderCd" required>
+                <label>성별</label>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="male" name="genderCd" value="M" required>
+                    <label class="form-check-label" for="male">남성</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="female" name="genderCd" value="F" required>
+                    <label class="form-check-label" for="female">여성</label>
+                </div>
             </div>
 
             <div class="form-group">
@@ -121,7 +128,7 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
@@ -156,24 +163,27 @@
                 memberName: $("#memberName").val(),
                 nickName: $("#nickName").val(),
                 hpNo: $("#hpNo").val(),
-                genderCd: $("#genderCd").val(),
-                birthDay: $("#birthDay").val()
+                genderCd: $("input[name='genderCd']:checked").val(),
+                birthDay: $("#birthDay").val(),
+                memberAuth: "USER"
             };
-
+            console.log("formData : ",formData);
             $.ajax({
                 type: "POST",
-                contentType: "application/json",
-                url: "/api/member/signup",
+                contentType: "application/json; charset=utf-8",
+                url: "/api/acnt/join",
                 data: JSON.stringify(formData),
-                success: function (response) {
-                    if (response === "success") {
-                        alert("회원가입 성공!");
+                dataType: "json",
+                success: function (response, textStatus, xhr) {
+                    if (xhr.status === 200 && response.message === "회원가입 성공") {
+                        alert("회원가입이 완료 되었습니다.");
+                        window.location.href = "/"; // 메인 페이지로 리디렉션
                     } else {
-                        alert("회원가입 실패!");
+                        alert("회원가입에 실패 하였습니다.");
                     }
                 },
-                error: function (e) {
-                    console.log("Error:", e);
+                error: function (xhr, status, error) {
+                    alert("회원가입에 실패 하였습니다.");
                 }
             });
         });

@@ -1,11 +1,13 @@
 package com.clonecoding.dev.jpa.entity;
 
+import com.clonecoding.dev.comm.RoleType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -28,7 +30,7 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEMBER_SNO")
-    private Long memberSno;
+    private int memberSno;
 
     @Column(name = "MEMBER_ID")
     private String memberId;
@@ -40,7 +42,7 @@ public class Member {
     private String memberName;
 
     @Column(name = "BIRTH_DAY")
-    private LocalDateTime birthDay;
+    private LocalDate birthDay;
 
     @Column(name = "NICK_NAME")
     private String nickName;
@@ -64,12 +66,12 @@ public class Member {
     private LocalDateTime updtDt;
 
     @Column(name = "MEMBR_AUTH")
-    private String membrAuth;
+    private RoleType membrAuth;
 
     @Builder
-    public Member(Long memberSno, String memberId, String memberPw, String memberName, LocalDateTime birthDay,
+    public Member(int memberSno, String memberId, String memberPw, String memberName, LocalDate birthDay,
                   String nickName, String hpNo, String memberStatusCd, LocalDateTime joinDt, String genderCd,
-                  LocalDateTime pwUpdtDt, LocalDateTime updtDt, String membrAuth) {
+                  LocalDateTime pwUpdtDt, LocalDateTime updtDt, RoleType membrAuth) {
         this.memberSno = memberSno;
         this.memberId = memberId;
         this.memberPw = memberPw;

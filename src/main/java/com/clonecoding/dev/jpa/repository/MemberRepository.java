@@ -1,8 +1,11 @@
 package com.clonecoding.dev.jpa.repository;
 
+import com.clonecoding.dev.api.acnt.model.MemberModel;
 import com.clonecoding.dev.jpa.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
  * packageName    : com.clonecoding.dev.jpa.repository
@@ -17,4 +20,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
+
+    Optional<Member> findByMemberId(String memberId);
 }
