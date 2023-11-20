@@ -27,7 +27,6 @@ public class SecurityConfig {
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
-        String encPassword = new BCryptPasswordEncoder().encode("1234");
         return new BCryptPasswordEncoder();
     }
 
@@ -38,13 +37,12 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeRequests()
-                .antMatchers("/","/api/acnt/**").permitAll()
+                .antMatchers("/","/api/acnt/**","/api/cns/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/api/acnt/login")
-                        .loginProcessingUrl("/api/acnt/loginProc")
                         .defaultSuccessUrl("/")
                 ;
                 return security.build();

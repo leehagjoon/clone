@@ -1,15 +1,13 @@
 package com.clonecoding.dev.api.acnt.service;
 
 import com.clonecoding.dev.api.acnt.model.MemberModel;
-import com.clonecoding.dev.comm.RoleType;
 import com.clonecoding.dev.jpa.entity.Member;
 import com.clonecoding.dev.jpa.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 
 /**
  * packageName    : com.clonecoding.dev.api.acnt.service
@@ -24,17 +22,25 @@ import java.time.LocalDateTime;
  */
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public MemberService(MemberRepository memberRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.memberRepository = memberRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
 
     @Transactional
     public void join(MemberModel memberModel) {
+
+        String encryptedPw = bCryptPasswordEncoder.encode(memberModel.getMemberPw());
         Member member = Member.builder()
                 .memberSno(memberModel.getMemberSno())
                 .memberId(memberModel.getMemberId())
-                .memberPw(memberModel.getMemberPw())
+                .memberPw(encryptedPw)
                 .memberName(memberModel.getMemberName())
                 .birthDay(memberModel.getBirthDay())
                 .nickName(memberModel.getNickName())
