@@ -66,6 +66,7 @@ public class Member {
     private LocalDateTime updtDt;
 
     @Column(name = "MEMBR_AUTH")
+    @Enumerated(EnumType.STRING)
     private RoleType membrAuth;
 
     @Builder

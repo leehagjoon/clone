@@ -48,7 +48,6 @@ public class MemberService {
                 .memberStatusCd(memberModel.getMemberStatusCd())
                 .joinDt(memberModel.getJoinDt())
                 .genderCd(memberModel.getGenderCd())
-                .membrAuth(memberModel.getMemberAuth())
                 .build();
         memberRepository.save(member);
     }

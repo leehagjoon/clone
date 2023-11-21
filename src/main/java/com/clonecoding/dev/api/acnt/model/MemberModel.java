@@ -43,12 +43,9 @@ public class MemberModel {
 
     private String genderCd;
 
-    @Enumerated(EnumType.STRING)
-    private RoleType memberAuth;
-
     @Builder
     public MemberModel(int memberSno, String memberId, String memberPw, String memberName, LocalDate birthDay,
-                       String nickName, String hpNo,String genderCd, RoleType memberAuth) {
+                       String nickName, String hpNo,String genderCd) {
         this.memberSno = memberSno;
         this.memberId = memberId;
         this.memberPw = memberPw;
@@ -59,6 +56,5 @@ public class MemberModel {
         this.memberStatusCd = "Y";
         this.joinDt = LocalDateTime.now();
         this.genderCd = genderCd;
-        this.memberAuth = memberAuth;
     }
 }
