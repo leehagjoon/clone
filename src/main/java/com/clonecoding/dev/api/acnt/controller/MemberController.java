@@ -46,6 +46,7 @@ public class MemberController {
     public ResponseEntity<Map<String, String>> joinMember(@RequestBody MemberModel memberModel){
         Map<String, String> res = new HashMap<>();
         try{
+            memberModel.setMemberAuth(RoleType.valueOf("USER"));
             memberService.join(memberModel);
             log.info("???? : {}", memberModel );
             res.put("message","회원가입 성공");

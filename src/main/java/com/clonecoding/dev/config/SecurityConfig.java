@@ -45,7 +45,6 @@ public class SecurityConfig {
                 .formLogin()
                 .loginPage("/api/acnt/login") // 로그인페이지 URL
                         .defaultSuccessUrl("/") // 로그인 성공시 이동할 페이지
-                        .usernameParameter("memberId") // 로그인시 사용할 파라미터 이름 설정
                         .and()
                         .logout()
                         .logoutRequestMatcher(new AntPathRequestMatcher("/api/acnt/logout")) // 로그아웃 URL

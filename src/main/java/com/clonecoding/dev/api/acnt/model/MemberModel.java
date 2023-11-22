@@ -4,8 +4,6 @@ import com.clonecoding.dev.comm.RoleType;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -42,6 +40,8 @@ public class MemberModel {
     private LocalDateTime joinDt;
 
     private String genderCd;
+
+    private RoleType memberAuth;
 
     @Builder
     public MemberModel(int memberSno, String memberId, String memberPw, String memberName, LocalDate birthDay,
