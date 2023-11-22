@@ -60,6 +60,37 @@
 
 </style>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">SPBD</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/api/cns/notice">공지사항</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/cns/bodotext">보도자료</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/cns/promotion">홍보영상</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/acnt/login">로그인</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/acnt/signup">회원가입</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/qna">Q&A</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/events">이벤트</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 <form id="noticeForm" th:action="@{/noticewrite/write}" method="post">
   <div>
     <label for="title">제목</label>
