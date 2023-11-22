@@ -4,6 +4,10 @@ import com.clonecoding.dev.api.acnt.model.MemberModel;
 import com.clonecoding.dev.jpa.entity.Member;
 import com.clonecoding.dev.jpa.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +26,7 @@ import javax.transaction.Transactional;
  */
 @Service
 @Slf4j
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -50,5 +54,27 @@ public class MemberService {
                 .genderCd(memberModel.getGenderCd())
                 .build();
         memberRepository.save(member);
+    }
+
+    private void validateDuplicateMember(Member member){
+        Member findMember = memberRepository.findByMemberId(member.getMemberId());
+
+        if(findMember != null){
+            throw new IllegalStateException("이미 가입된 회원입니다.");
+        }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
+        Member members = memberRepository.findByMemberId(memberId);
+
+        if(members == null){
+            throw new UsernameNotFoundException(memberId);
+        }
+        return User.builder()
+                .username(members.getMemberId())
+                .password(members.getMemberPw())
+                .roles(members.getMembrAuth().toString())
+                .build();
     }
 }

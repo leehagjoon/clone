@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * packageName    : com.clonecoding.dev.config
@@ -42,9 +43,13 @@ public class SecurityConfig {
                 .authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/api/acnt/login")
-                        .defaultSuccessUrl("/")
-                ;
+                .loginPage("/api/acnt/login") // 로그인페이지 URL
+                        .defaultSuccessUrl("/") // 로그인 성공시 이동할 페이지
+                        .usernameParameter("memberId") // 로그인시 사용할 파라미터 이름 설정
+                        .and()
+                        .logout()
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/api/acnt/logout")) // 로그아웃 URL
+                        .logoutSuccessUrl("/"); // 로그아웃 성공시 URL
                 return security.build();
     }
 }
