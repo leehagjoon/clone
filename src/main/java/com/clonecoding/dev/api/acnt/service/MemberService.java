@@ -4,6 +4,7 @@ import com.clonecoding.dev.api.acnt.model.MemberModel;
 import com.clonecoding.dev.jpa.entity.Member;
 import com.clonecoding.dev.jpa.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,7 +27,8 @@ import javax.transaction.Transactional;
  */
 @Service
 @Slf4j
-public class MemberService{
+public class MemberService implements UserDetailsService{
+
 
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -40,21 +42,22 @@ public class MemberService{
     @Transactional
     public void join(MemberModel memberModel) {
 
-        String encryptedPw = bCryptPasswordEncoder.encode(memberModel.getMemberPw());
-        Member member = Member.builder()
-                .memberSno(memberModel.getMemberSno())
-                .memberId(memberModel.getMemberId())
-                .memberPw(encryptedPw)
-                .memberName(memberModel.getMemberName())
-                .birthDay(memberModel.getBirthDay())
-                .nickName(memberModel.getNickName())
-                .hpNo(memberModel.getHpNo())
-                .memberStatusCd(memberModel.getMemberStatusCd())
-                .joinDt(memberModel.getJoinDt())
-                .genderCd(memberModel.getGenderCd())
-                .memberAuth(memberModel.getMemberAuth())
+        memberModel.setMemberPw(bCryptPasswordEncoder.encode(memberModel.getMemberPw()));
+        memberRepository.save(memberModel.toEntity());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Member member = memberRepository.findByMemberId(username);
+        return toUserDetail(member);
+    }
+
+    private UserDetails toUserDetail(Member member){
+        return User.builder()
+                .username(member.getMemberId())
+                .password(member.getMemberPw())
+                .authorities(new SimpleGrantedAuthority(member.getMemberAuth().toString()))
                 .build();
-        memberRepository.save(member);
     }
 
 }

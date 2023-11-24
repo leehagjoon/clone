@@ -1,6 +1,7 @@
 package com.clonecoding.dev.api.acnt.model;
 
 import com.clonecoding.dev.comm.RoleType;
+import com.clonecoding.dev.jpa.entity.Member;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
  * 2023-11-20        hagjoon       최초 생성
  */
 @Data
+@Builder
 public class MemberModel {
 
     private int memberSno;
@@ -41,22 +43,24 @@ public class MemberModel {
 
     private String genderCd;
 
-
     private RoleType memberAuth;
 
-    @Builder
-    public MemberModel(int memberSno, String memberId, String memberPw, String memberName, LocalDate birthDay,
-                       String nickName, String hpNo,String genderCd, RoleType memberAuth) {
-        this.memberSno = memberSno;
-        this.memberId = memberId;
-        this.memberPw = memberPw;
-        this.memberName = memberName;
-        this.birthDay = birthDay;
-        this.nickName = nickName;
-        this.hpNo = hpNo;
-        this.memberStatusCd = "Y";
-        this.joinDt = LocalDateTime.now();
-        this.genderCd = genderCd;
-        this.memberAuth = memberAuth != null ? memberAuth : RoleType.ROLE_USER;
+    /*
+    DTO -> Entity
+     */
+    public Member toEntity(){
+        Member member = Member.builder()
+                .memberId(this.memberId)
+                .memberPw(this.memberPw)
+                .memberName(this.memberName)
+                .birthDay(this.birthDay)
+                .nickName(this.nickName)
+                .hpNo(this.hpNo)
+                .memberStatusCd(this.memberStatusCd)
+                .joinDt(this.joinDt)
+                .genderCd(this.genderCd)
+                .memberAuth(this.memberAuth)
+                .build();
+        return member;
     }
 }
