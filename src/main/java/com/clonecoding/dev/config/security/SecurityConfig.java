@@ -2,7 +2,9 @@ package com.clonecoding.dev.config.security;
 
 import com.clonecoding.dev.config.security.auth.MemberPrincipalDetailService;
 import com.clonecoding.dev.config.security.config.MemberAuthFailureHandler;
+import com.clonecoding.dev.config.security.config.MemberAuthSuccessHandler;
 import com.clonecoding.dev.config.security.provider.MemberAuthenticationProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +29,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  */
 @Configuration
 @EnableWebSecurity // 스프링 시큐리티 필터가 스프링 필터체인에 등록된다.
+@Slf4j
 public class SecurityConfig {
 
 
@@ -65,8 +68,12 @@ public class SecurityConfig {
                        .and()
                        .formLogin()
                        .loginPage("/api/acnt/login") // 로그인 페이지 설정
-                       .loginProcessingUrl("/api/acnt/login") // 로그인 처리 URL 설정
-                       .defaultSuccessUrl("/api/cns/notice") // 로그인 성공 후 이동할 페이지
+//                       .loginProcessingUrl("/api/acnt/loginProc") // 로그인 처리 URL 설정
+//                       .defaultSuccessUrl("/") // 로그인 성공 후 이동할 페이지
+                       .successHandler((request, response, authentication) -> {
+                            log.info("해윙");
+                           response.sendRedirect("/");
+                       })
                        .failureHandler(new MemberAuthFailureHandler())// 로그인 실패 후 처리할 핸들러
                        .permitAll()
                        .and()

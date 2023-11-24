@@ -63,6 +63,9 @@ public class MemberController {
         return "login";
     }
 
+    @PostMapping("/loginProc")
+
+
     @GetMapping("/logout")
     public String logout(){
         return "home";
