@@ -2,8 +2,8 @@ package com.clonecoding.dev.api.acnt.controller;
 
 import com.clonecoding.dev.api.acnt.model.MemberModel;
 import com.clonecoding.dev.api.acnt.service.MemberService;
-import com.clonecoding.dev.comm.RoleType;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,11 +31,12 @@ import java.util.Map;
 @RequestMapping("/api/acnt")
 public class MemberController {
 
-    private final MemberService memberService;
 
+    private final MemberService memberService;
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
+
 
     @GetMapping("/signup")
     public String join(){
@@ -46,12 +47,12 @@ public class MemberController {
     public ResponseEntity<Map<String, String>> joinMember(@RequestBody MemberModel memberModel){
         Map<String, String> res = new HashMap<>();
         try{
-            memberModel.setMemberAuth(RoleType.valueOf("USER"));
             memberService.join(memberModel);
             log.info("???? : {}", memberModel );
             res.put("message","회원가입 성공");
             return new ResponseEntity<>(res, HttpStatus.OK);
         }catch (Exception e){
+            log.info("회원 등록 중 오류 발생 : {} ", e);
             res.put("message", "회원가입 실패");
             return new ResponseEntity<>(res,HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -60,5 +61,10 @@ public class MemberController {
     @GetMapping("/login")
     public String login(){
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        return "home";
     }
 }

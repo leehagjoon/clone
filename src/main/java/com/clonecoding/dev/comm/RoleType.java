@@ -1,5 +1,7 @@
 package com.clonecoding.dev.comm;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * packageName    : com.clonecoding.dev.comm
  * fileName       : RoleType
@@ -12,6 +14,5 @@ package com.clonecoding.dev.comm;
  * 2023-11-20        hagjoon       최초 생성
  */
 public enum RoleType {
-    USER,
-    ADMIN
+    ROLE_USER
 }

@@ -26,7 +26,7 @@ import javax.transaction.Transactional;
  */
 @Service
 @Slf4j
-public class MemberService implements UserDetailsService {
+public class MemberService{
 
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -52,29 +52,9 @@ public class MemberService implements UserDetailsService {
                 .memberStatusCd(memberModel.getMemberStatusCd())
                 .joinDt(memberModel.getJoinDt())
                 .genderCd(memberModel.getGenderCd())
+                .memberAuth(memberModel.getMemberAuth())
                 .build();
         memberRepository.save(member);
     }
 
-    private void validateDuplicateMember(Member member){
-        Member findMember = memberRepository.findByMemberId(member.getMemberId());
-
-        if(findMember != null){
-            throw new IllegalStateException("이미 가입된 회원입니다.");
-        }
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
-        Member members = memberRepository.findByMemberId(memberId);
-
-        if(members == null){
-            throw new UsernameNotFoundException(memberId);
-        }
-        return User.builder()
-                .username(members.getMemberId())
-                .password(members.getMemberPw())
-                .roles(members.getMembrAuth().toString())
-                .build();
-    }
 }

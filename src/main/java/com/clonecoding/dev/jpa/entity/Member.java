@@ -65,14 +65,14 @@ public class Member {
     @Column(name = "UPDT_DT")
     private LocalDateTime updtDt;
 
-    @Column(name = "MEMBR_AUTH")
     @Enumerated(EnumType.STRING)
-    private RoleType membrAuth;
+    @Column(name = "MEMBR_AUTH")
+    private RoleType memberAuth;
 
     @Builder
     public Member(int memberSno, String memberId, String memberPw, String memberName, LocalDate birthDay,
                   String nickName, String hpNo, String memberStatusCd, LocalDateTime joinDt, String genderCd,
-                  LocalDateTime pwUpdtDt, LocalDateTime updtDt, RoleType membrAuth) {
+                  LocalDateTime pwUpdtDt, LocalDateTime updtDt, RoleType memberAuth) {
         this.memberSno = memberSno;
         this.memberId = memberId;
         this.memberPw = memberPw;
@@ -85,6 +85,6 @@ public class Member {
         this.genderCd = genderCd;
         this.pwUpdtDt = pwUpdtDt;
         this.updtDt = updtDt;
-        this.membrAuth = membrAuth;
+        this.memberAuth = memberAuth;
     }
 }

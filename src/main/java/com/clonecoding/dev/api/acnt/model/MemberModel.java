@@ -41,11 +41,12 @@ public class MemberModel {
 
     private String genderCd;
 
+
     private RoleType memberAuth;
 
     @Builder
     public MemberModel(int memberSno, String memberId, String memberPw, String memberName, LocalDate birthDay,
-                       String nickName, String hpNo,String genderCd) {
+                       String nickName, String hpNo,String genderCd, RoleType memberAuth) {
         this.memberSno = memberSno;
         this.memberId = memberId;
         this.memberPw = memberPw;
@@ -56,5 +57,6 @@ public class MemberModel {
         this.memberStatusCd = "Y";
         this.joinDt = LocalDateTime.now();
         this.genderCd = genderCd;
+        this.memberAuth = memberAuth != null ? memberAuth : RoleType.ROLE_USER;
     }
 }
