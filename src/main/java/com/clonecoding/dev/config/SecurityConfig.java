@@ -1,6 +1,9 @@
 package com.clonecoding.dev.config;
 
+import com.clonecoding.dev.api.acnt.provider.MemberAuthenticatorProvider;
+import com.clonecoding.dev.api.acnt.service.MemberPrincipalDetailService;
 import com.clonecoding.dev.api.acnt.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,12 +28,19 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity // 스프링 시큐리티 필터가 스프링 필터체인에 등록된다.
 @Slf4j
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final MemberService memberService;
 
-    public SecurityConfig(MemberService memberService) {
-        this.memberService = memberService;
+    @Autowired
+    MemberAuthenticatorProvider memberAuthenticatorProvider;
+
+    @Autowired
+    MemberPrincipalDetailService memberPrincipalDetailService;
+
+    @Autowired
+    public void configure (AuthenticationManagerBuilder auth) throws Exception{
+        auth.authenticationProvider(memberAuthenticatorProvider);
     }
 
     @Bean
@@ -38,10 +48,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(memberService).passwordEncoder(bCryptPasswordEncoder());
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception{
@@ -60,4 +66,5 @@ public class SecurityConfig {
               .csrf().disable();
               return security.build();
     }
+
 }

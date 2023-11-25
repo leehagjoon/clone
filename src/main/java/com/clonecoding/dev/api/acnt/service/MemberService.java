@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 /**
  * packageName    : com.clonecoding.dev.api.acnt.service
@@ -27,7 +28,7 @@ import javax.transaction.Transactional;
  */
 @Service
 @Slf4j
-public class MemberService implements UserDetailsService{
+public class MemberService {
 
 
     private final MemberRepository memberRepository;
@@ -44,20 +45,6 @@ public class MemberService implements UserDetailsService{
 
         memberModel.setMemberPw(bCryptPasswordEncoder.encode(memberModel.getMemberPw()));
         memberRepository.save(memberModel.toEntity());
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberRepository.findByMemberId(username);
-        return toUserDetail(member);
-    }
-
-    private UserDetails toUserDetail(Member member){
-        return User.builder()
-                .username(member.getMemberId())
-                .password(member.getMemberPw())
-                .authorities(new SimpleGrantedAuthority(member.getMemberAuth().toString()))
-                .build();
     }
 
 }

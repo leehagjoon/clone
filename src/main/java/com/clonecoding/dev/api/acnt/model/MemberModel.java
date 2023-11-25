@@ -4,9 +4,14 @@ import com.clonecoding.dev.comm.RoleType;
 import com.clonecoding.dev.jpa.entity.Member;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * packageName    : com.clonecoding.dev.api.acnt.model
@@ -21,7 +26,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Builder
-public class MemberModel {
+public class MemberModel{
 
     private int memberSno;
 
@@ -43,7 +48,7 @@ public class MemberModel {
 
     private String genderCd;
 
-    private RoleType memberAuth;
+    private String memberAuth;
 
     /*
     DTO -> Entity
@@ -59,8 +64,10 @@ public class MemberModel {
                 .memberStatusCd(this.memberStatusCd)
                 .joinDt(this.joinDt)
                 .genderCd(this.genderCd)
-                .memberAuth(this.memberAuth)
+                .memberAuth(RoleType.valueOf(this.memberAuth))
                 .build();
         return member;
     }
+
+
 }

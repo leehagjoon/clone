@@ -30,7 +30,7 @@ import java.util.Collection;
 @Table(name = "member")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member implements UserDetails {
+public class Member{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -91,42 +91,5 @@ public class Member implements UserDetails {
         this.pwUpdtDt = pwUpdtDt;
         this.updtDt = updtDt;
         this.memberAuth = memberAuth;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> collection = new ArrayList<>();
-      collection.add(new SimpleGrantedAuthority(String.valueOf(memberAuth)));
-        return collection;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.memberPw;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.memberId;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 }
