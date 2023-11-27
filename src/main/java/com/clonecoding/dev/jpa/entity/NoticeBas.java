@@ -27,6 +27,9 @@ public class NoticeBas {
     @Column(name = "NOTICE_SNO")
     private Integer noticeSno;
 
+    @Column(name = "MEMBER_SNO")
+    private Integer memberSno;
+
     @Column(name = "TITLE")
     private String title;
 
