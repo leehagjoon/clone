@@ -51,19 +51,36 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception{
-      security
-              .authorizeRequests()
-              .antMatchers("/")
-              .permitAll();
-      security
-              .formLogin()
-              .loginPage("/api/acnt/login")
-              .loginProcessingUrl("/api/acnt/loginProc")
-              .defaultSuccessUrl("/")
-              .and()
-              .logout()
-              .and()
-              .csrf().disable();
+//      security
+//              .authorizeRequests()
+//              .antMatchers("/")
+//              .permitAll();
+//      security
+//              .formLogin()
+//              .loginPage("/api/acnt/login")
+//              .loginProcessingUrl("/api/acnt/loginProc")
+//              .defaultSuccessUrl("/")
+//              .failureUrl("/")
+//              .and()
+//              .logout()
+//              .and()
+//              .csrf().disable();
+
+            security.cors(cors -> cors.disable())
+                    .csrf(csrf -> csrf.disable());
+
+            security.authorizeRequests(
+                    authorizeRequests -> authorizeRequests.anyRequest().permitAll()
+            );
+
+            security.formLogin(
+                    formLogin -> formLogin.loginPage("/api/acnt/login")
+                            .loginProcessingUrl("/api/acnt/loginProc")
+                            .defaultSuccessUrl("/")
+                            .failureUrl("/")
+            );
+
+
               return security.build();
     }
 
