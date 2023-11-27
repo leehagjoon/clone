@@ -70,9 +70,16 @@ public class NoticeController {
     }
 
     @GetMapping("/detail/{noticeSno}")
-    public String getNoticeDetail(Model model, @PathVariable Integer noticeSno) {
+    public String getNoticeDetail(Model model, @PathVariable Integer noticeSno,  Authentication authentication) {
         noticeService.updateExpsrCnt(noticeSno);
-        model.addAttribute("noticeDto", noticeService.getNoticeDetail(noticeSno));
+      NoticeBas noticeBas = noticeService.getNoticeDetail(noticeSno);
+
+      if(authentication != null && authentication.isAuthenticated() && noticeBas.getCreatUser().equals(authentication.getName())){
+          model.addAttribute("isOwner",true);
+      }else {
+          model.addAttribute("isOwner",false);
+      }
+      model.addAttribute("noticeDto",noticeBas);
         return "detail";
     }
 
@@ -85,7 +92,7 @@ public class NoticeController {
         return "/noticewrite";
     }
 
-    @PostMapping(value = "/noticewrite/write", produces = "application/json; charset=UTF-8", consumes = "application/json")
+    @PostMapping(value = "/noticewrite/write",produces = "application/json; charset=UTF-8")
     public ResponseEntity<Map<String,String>> creatWrite(@RequestBody NoticeModel dto, Authentication authentication) {
         Map<String, String> res = new HashMap<>();
         try {

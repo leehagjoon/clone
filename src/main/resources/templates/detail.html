@@ -179,36 +179,11 @@
         </tr>
     </table>
     <p th:text="${noticeDto.content}"></p>
-    <div class="comments-section">
-        <table class="comment-table">
-            <tr>
-                <th>사용자명</th>
-                <th>댓글</th>
-            </tr>
-            <tr>
-                <td>사용자 1</td>
-                <td>댓글 내용을 입력하세요.</td>
-            </tr>
-        </table>
-
-        <!-- 새로운 댓글을 제출할 수 있는 양식 추가 -->
-        <div class="comment-form">
-            <form action="/addComment" method="post">
-                <div>
-                    <label for="username">이름:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div>
-                    <label for="commentText">댓글:</label>
-                    <textarea id="commentText" name="commentText" rows="4" required></textarea>
-                </div>
-                <div>
-                    <button type="submit">댓글 작성</button>
-                </div>
-            </form>
-        </div>
-    </div>
     <a class="back-to-notice" href="/api/cns/notice">공지사항</a>
+    <div th:if="${isOwner}">
+        <a th:href="@{'/edit/' + ${noticeDto.noticeSno}}">수정</a>
+        <a th:href="@{'/delete/' + ${noticeDto.noticeSno}}">삭제</a>
+    </div>
 </div>
 </body>
 </html>
