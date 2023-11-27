@@ -22,6 +22,8 @@ public class NoticeModel {
 
     private Integer noticeSno;
 
+    private Integer memberSno;
+
     private String title;
 
     private String content;
@@ -34,14 +36,17 @@ public class NoticeModel {
 
     private LocalDateTime creatDt;
 
+    private String creatUserNickname;
+
     private int expsrCnt;
     @Builder
     public NoticeBas toEntity(){
         return NoticeBas.builder()
                 .noticeSno(noticeSno)
+                .memberSno(memberSno)
                 .title(title)
                 .content(content)
-                .creatUser(creatUser)
+                .creatUser(creatUserNickname)
                 .useYn(useYn)
                 .impYn(impYn)
                 .creatDt(creatDt)

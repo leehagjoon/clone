@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>SPBD</title>
@@ -99,14 +99,14 @@
   </div>
 </nav>
 
-<form id="noticeForm" th:action="@{/noticewrite/write}" method="post">
+<form id="noticeForm" th:action="@{/api/cns/noticewrite/write}" method="post">
   <div>
     <label for="title">제목</label>
     <input type="text" id="title" name="title">
   </div>
-  <div>
-    <label for="creatUser">작성자</label>
-    <input type="text" id="creatUser" name="creatUser">
+  <div th:if="${#authorization.expression('isAuthenticated()')}">
+    <input type="hidden" id="memberSno" name="memberSno" th:value="${#authentication.principal.memberSno}" />
+    <input type="hidden" id="creatUserNickname" name="creatUserNickname" th:value="${#authentication.principal.username}" />
   </div>
   <div>
     <label for="content">내용</label>
@@ -122,22 +122,28 @@
 
       var formData = {
         title: $("#title").val(),
-        creatUser: $("#creatUser").val(),
-        createDate: $("#creatDt").val(), // 작성일 정보 가져오기
         content: $("#content").val()
       };
+
+      var isAuthenticated = /*[[${#authorization.expression('isAuthenticated()')}]]*/ false;
+
+      if (isAuthenticated) {
+        formData.memberSno = $("#memberSno").val();
+        formData.creatUserNickname = $("#creatUserNickname").val();
+      }
+
 
       $.ajax({
         type: "POST",
         url: $(this).attr("action"),
         data: JSON.stringify(formData), // 데이터를 JSON 문자열로 직렬화
-        contentType: "application/json",
         dataType: "json", // 기대하는 데이터 형식을 JSON으로 지정합니다.
+        contentType: "application/json",
         success: function(res) {
           // 응담 메시지를 확인하고 사용자에게 적절한 피드백을 제공합니다.
           if (res.message === "글 등록에 성공") {
             alert("글이 성공적으로 등록되었습니다.");
-            window.location.href = "/notice";
+            window.location.href = "/api/cns/notice";
           } else {
             alert("글 등록에 실패했습니다.");
           }

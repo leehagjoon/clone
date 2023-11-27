@@ -61,8 +61,8 @@ public class MemberModel{
                 .birthDay(this.birthDay)
                 .nickName(this.nickName)
                 .hpNo(this.hpNo)
-                .memberStatusCd(this.memberStatusCd)
-                .joinDt(this.joinDt)
+                .memberStatusCd("Y")
+                .joinDt(LocalDateTime.now())
                 .genderCd(this.genderCd)
                 .memberAuth(RoleType.valueOf(this.memberAuth))
                 .build();

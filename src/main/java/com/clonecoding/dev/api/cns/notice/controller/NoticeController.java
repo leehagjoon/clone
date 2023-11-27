@@ -1,5 +1,6 @@
 package com.clonecoding.dev.api.cns.notice.controller;
 
+import com.clonecoding.dev.api.acnt.service.MemberPrincipalDetails;
 import com.clonecoding.dev.api.cns.notice.service.NoticeService;
 import com.clonecoding.dev.jpa.entity.NoticeBas;
 import com.clonecoding.dev.api.cns.notice.model.NoticeModel;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -74,20 +77,29 @@ public class NoticeController {
     }
 
     @GetMapping("/noticewrite")
-    public String getNoticeWrite(){
+    public String getNoticeWrite(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null && authentication.isAuthenticated()){
+            model.addAttribute("currentUserId", authentication.getName());
+        }
         return "/noticewrite";
     }
 
-    @PostMapping(value = "/noticewrite/write",produces = "application/json; charset=UTF-8")
-    public ResponseEntity<Map<String,String>> creatWrite(@RequestBody NoticeModel dto){
+    @PostMapping(value = "/noticewrite/write", produces = "application/json; charset=UTF-8", consumes = "application/json")
+    public ResponseEntity<Map<String,String>> creatWrite(@RequestBody NoticeModel dto, Authentication authentication) {
         Map<String, String> res = new HashMap<>();
-        try{
-            noticeService.creatWrite(dto);
-            log.info("정보가 잘 저장이 될까나?? : {} ",dto);
-            res.put("message","글 등록에 성공");
-            return new ResponseEntity<>(res,HttpStatus.OK);
-        }catch (Exception e){
-            res.put("message","글 작성에 실패");
+        try {
+            if (authentication != null && authentication.isAuthenticated()) {
+                MemberPrincipalDetails principalDetails = (MemberPrincipalDetails) authentication.getPrincipal();
+                noticeService.creatWrite(dto, principalDetails);
+                res.put("message", "글 등록에 성공");
+                return new ResponseEntity<>(res, HttpStatus.OK);
+            } else {
+                res.put("message","로그인이 필요합니다");
+                return new ResponseEntity<>(res,HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+            res.put("message", "글 작성에 실패");
             return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

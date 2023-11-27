@@ -32,6 +32,10 @@ public class MemberPrincipalDetails implements UserDetails {
         return member;
     }
 
+    public int getMemberSno(){
+        return member.getMemberSno();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();

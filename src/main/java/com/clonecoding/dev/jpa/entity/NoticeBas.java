@@ -53,6 +53,7 @@ public class NoticeBas {
 
     @Builder
     public NoticeBas(Integer noticeSno,
+                     Integer memberSno,
                      String title,
                      String content,
                      String creatUser,
@@ -61,6 +62,7 @@ public class NoticeBas {
                      String useYn,
                      String impYn){
         this.noticeSno = noticeSno;
+        this.memberSno = memberSno;
         this.title = title;
         this.content = content;
         this.creatDt = LocalDateTime.now();

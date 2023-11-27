@@ -1,5 +1,6 @@
 package com.clonecoding.dev.api.cns.notice.service;
 
+import com.clonecoding.dev.api.acnt.service.MemberPrincipalDetails;
 import com.clonecoding.dev.api.cns.notice.model.NoticeModel;
 import com.clonecoding.dev.jpa.entity.NoticeBas;
 import com.clonecoding.dev.jpa.repository.NoticeBasRepository;
@@ -51,16 +52,13 @@ public class NoticeService {
     }
 
     @Transactional
-    public void creatWrite(NoticeModel noticeModel){
-//        NoticeBas noticeBas = noticeDto.toEntity();
-//        noticeBas.setCreatDt(LocalDateTime.now());
-//        noticeBas.setImpYn("N");
-//        noticeBas.setUseYn("Y");
+    public void creatWrite(NoticeModel noticeModel, MemberPrincipalDetails principalDetails){
         NoticeBas bas = NoticeBas.builder()
                         .noticeSno(noticeModel.getNoticeSno())
+                        .memberSno(principalDetails.getMemberSno())
                         .title(noticeModel.getTitle())
                         .content(noticeModel.getContent())
-                        .creatUser(noticeModel.getCreatUser())
+                        .creatUser(principalDetails.getMember().getNickName())
                         .creatDt(LocalDateTime.now())
                         .impYn(noticeModel.getImpYn())
                         .useYn(noticeModel.getUseYn())
