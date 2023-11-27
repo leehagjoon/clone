@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 </head>
+
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">SPBD</a>
@@ -24,9 +25,14 @@
                 <a class="nav-link" href="/api/cns/promotion">홍보영상</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/api/acnt/login">로그인</a>
+                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                    <a class="nav-link" href="/api/acnt/logout">로그아웃</a>
+                </th:block>
+                <th:block th:unless="${#authorization.expression('isAuthenticated')}">
+                    <a class="nav-link" href="/api/acnt/login">로그인</a>
+                </th:block>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated')}">
                 <a class="nav-link" href="/api/acnt/signup">회원가입</a>
             </li>
             <li class="nav-item">

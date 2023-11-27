@@ -81,9 +81,14 @@
         <a class="nav-link" href="/api/cns/promotion">홍보영상</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/api/acnt/login">로그인</a>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+          <a class="nav-link" href="/api/acnt/logout">로그아웃</a>
+        </th:block>
+        <th:block th:unless="${#authorization.expression('isAuthenticated')}">
+          <a class="nav-link" href="/api/acnt/login">로그인</a>
+        </th:block>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated')}">
         <a class="nav-link" href="/api/acnt/signup">회원가입</a>
       </li>
       <li class="nav-item">
@@ -95,6 +100,7 @@
     </ul>
   </div>
 </nav>
+
 <div class="container mt-5">
   <h2>로그인</h2>
   <form id="form-login" action="/api/acnt/loginProc" method="post" onsubmit="return true;">
@@ -112,37 +118,4 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<!--<script>-->
-<!--  $(document).ready(function () {-->
-<!--    $('#form-login').submit(function (event) {-->
-<!--      event.preventDefault(); // 기존의 방식으로 폼이 제출되는 것을 방지합니다.-->
-
-<!--      var username = $('#username').val();-->
-<!--      var password = $('#password').val();-->
-
-<!--      var data = {-->
-<!--        id: username,-->
-<!--        password: password-->
-<!--      };-->
-
-<!--      $.ajax({-->
-<!--        type: 'POST',-->
-<!--        contentType: 'application/json',-->
-<!--        url: '/api/acnt/loginProc',-->
-<!--        data: JSON.stringify(data),-->
-<!--        dataType: 'json',-->
-<!--        success: function (response) {-->
-<!--          console.log('로그인 성공');-->
-<!--          alert('로그인 성공!');-->
-<!--          window.location.href = '/';-->
-<!--        },-->
-<!--        error: function (error) {-->
-<!--          console.error('로그인 실패');-->
-<!--          alert('로그인에 실패했습니다.');-->
-<!--        }-->
-<!--      });-->
-<!--    });-->
-<!--  });-->
-<!--</script>-->
-
 </html>

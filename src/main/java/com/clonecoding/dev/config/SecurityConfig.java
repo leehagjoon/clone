@@ -78,7 +78,13 @@ public class SecurityConfig {
                             .loginProcessingUrl("/api/acnt/loginProc")
                             .defaultSuccessUrl("/")
                             .failureUrl("/")
-            );
+            )
+                    .logout(
+                            logout -> logout.logoutUrl("/api/acnt/logout")
+                                    .logoutSuccessUrl("/")
+                                    .invalidateHttpSession(true) //HTTP 세션 무효화
+                                    .deleteCookies("JSESSIONID") // 쿠키 삭제
+                    );
 
 
               return security.build();

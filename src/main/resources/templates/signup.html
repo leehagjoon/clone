@@ -61,10 +61,15 @@
                 <a class="nav-link" href="/api/cns/promotion">홍보영상</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/api/anct/login">로그인</a>
+                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                    <a class="nav-link" href="/api/acnt/logout">로그아웃</a>
+                </th:block>
+                <th:block th:unless="${#authorization.expression('isAuthenticated')}">
+                    <a class="nav-link" href="/api/acnt/login">로그인</a>
+                </th:block>
             </li>
-            <li class="nav-item hide-on-signup">
-                <a class="nav-link" href="/api/anct/signup">회원가입</a>
+            <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated')}">
+                <a class="nav-link" href="/api/acnt/signup">회원가입</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/qna">Q&A</a>
@@ -75,6 +80,7 @@
         </ul>
     </div>
 </nav>
+
 
 <div class="container">
     <div class="jumbotron">
