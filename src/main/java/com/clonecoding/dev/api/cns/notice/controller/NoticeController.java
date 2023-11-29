@@ -128,7 +128,7 @@ public class NoticeController {
         return "notice";
     }
 
-    @PutMapping(value = "/noticeupdate/update" ,produces = "application/json; charset=UTF-8")
+    @PostMapping(value = "/noticeupdate/update" ,produces = "application/json; charset=UTF-8")
     public ResponseEntity<Map<String,String>> update(@RequestBody NoticeModel model, Authentication authentication) {
         Map<String, String> res = new HashMap<>();
         log.info("415 : {} ",model);
