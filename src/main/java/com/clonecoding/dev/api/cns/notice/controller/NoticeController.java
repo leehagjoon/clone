@@ -128,5 +128,10 @@ public class NoticeController {
         return "notice";
     }
 
+    @PostMapping("/noticeupdate/update")
+    public ResponseEntity<Map<String,String>> update(@RequestBody NoticeModel model, Authentication authentication){
+        return null;
+    }
+
 
 }
