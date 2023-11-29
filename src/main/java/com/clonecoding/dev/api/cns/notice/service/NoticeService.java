@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -33,7 +34,7 @@ public class NoticeService {
     private final NoticeBasRepository noticeBasRepository;
 
     public Page<NoticeBas> getNoticeList(Pageable pageable) {
-    return noticeBasRepository.findAll(pageable);
+        return noticeBasRepository.findAll(pageable);
     }
 
     public Page<NoticeBas> searchTitle(String keyword, Pageable pageable){
@@ -42,8 +43,8 @@ public class NoticeService {
 
 
     public NoticeBas getNoticeDetail(Integer noticeSno) {
-       Optional<NoticeBas> optional = noticeBasRepository.findById(noticeSno);
-       return optional.orElse(null);
+        Optional<NoticeBas> optional = noticeBasRepository.findById(noticeSno);
+        return optional.orElse(null);
     }
 
     @Transactional
@@ -54,15 +55,26 @@ public class NoticeService {
     @Transactional
     public void creatWrite(NoticeModel noticeModel, MemberPrincipalDetails principalDetails){
         NoticeBas bas = NoticeBas.builder()
-                        .noticeSno(noticeModel.getNoticeSno())
-                        .memberSno(principalDetails.getMemberSno())
-                        .title(noticeModel.getTitle())
-                        .content(noticeModel.getContent())
-                        .creatUser(principalDetails.getMember().getNickName())
-                        .creatDt(LocalDateTime.now())
-                        .impYn(noticeModel.getImpYn())
-                        .useYn(noticeModel.getUseYn())
-                        .build();
+                .noticeSno(noticeModel.getNoticeSno())
+                .memberSno(principalDetails.getMemberSno())
+                .title(noticeModel.getTitle())
+                .content(noticeModel.getContent())
+                .creatUser(principalDetails.getMember().getNickName())
+                .creatDt(LocalDateTime.now())
+                .impYn(noticeModel.getImpYn())
+                .useYn(noticeModel.getUseYn())
+                .build();
+        noticeBasRepository.save(bas);
+    }
+
+    @Transactional
+    public void updateNotice(NoticeModel model,MemberPrincipalDetails principalDetails){
+        NoticeBas bas = NoticeBas.builder()
+                .memberSno(principalDetails.getMemberSno())
+                .title(model.getTitle())
+                .content(model.getContent())
+                .creatUser(principalDetails.getMember().getNickName())
+                .build();
         noticeBasRepository.save(bas);
     }
 

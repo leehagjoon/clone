@@ -53,4 +53,14 @@ public class NoticeModel {
                 .expsrCnt(expsrCnt)
                 .build();
     }
+    @Builder
+    public NoticeBas updateEntity(){
+        NoticeBas bas = NoticeBas.builder()
+                .memberSno(memberSno)
+                .title(title)
+                .content(content)
+                .creatUser(creatUserNickname)
+                .build();
+                return bas;
+    }
 }

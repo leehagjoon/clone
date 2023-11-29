@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>SPBD</title>
@@ -100,6 +100,7 @@
 </nav>
 
 <form id="noticeForm" th:action="@{/api/cns/noticeupdate/update}" method="post">
+  <input type="hidden" name="_method" value="PUT">
   <div>
     <label for="title">제목</label>
     <input type="text" id="title" name="title">
@@ -115,5 +116,48 @@
   <button type="submit" id="submitBtn">수정</button>
 </form>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#noticeForm").submit(function(event) {
+      event.preventDefault(); // 기본 폼 제출을 막습니다.
+
+      var formData = {
+        title: $("#title").val(),
+        content: $("#content").val()
+      };
+
+      var isAuthenticated = /*[[${#authorization.expression('isAuthenticated()')}]]*/ false;
+
+      if (isAuthenticated) {
+        formData.memberSno = $("#memberSno").val();
+        formData.creatUserNickname = $("#creatUserNickname").val();
+      }
+
+
+      $.ajax({
+        type: "POST",
+        url: $(this).attr("action"),
+        data: JSON.stringify(formData), // 데이터를 JSON 문자열로 직렬화
+        headers: {
+          "X-HTTP-Method-Override": "PUT" // HiddenHttpMethodFilter를 위한 헤더 추가
+        },
+        dataType: "json", // 기대하는 데이터 형식을 JSON으로 지정합니다.
+        contentType: "application/json; charset=UTF-8",
+        success: function(res) {
+          // 응담 메시지를 확인하고 사용자에게 적절한 피드백을 제공합니다.
+          if (res.message === "success") {
+            alert("수정하였습니다.");
+            window.location.href = "/api/cns/notice";
+          } else {
+            alert("수정에 실패하였습니다.");
+          }
+        },
+        error: function() {
+          alert("수정에 실패하였습니다.");
+        }
+      });
+    });
+  });
+</script>
 </html>
