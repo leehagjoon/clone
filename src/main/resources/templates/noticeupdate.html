@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SPBD</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+</head>
+<style>
+  /* 기본 스타일 */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+
+  form {
+    width: 50%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px 2px #888888;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #555;
+  }
+
+  /* 작성일 스타일 */
+  .create-date {
+    font-size: 12px;
+    color: #999;
+  }
+
+</style>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">SPBD</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/api/cns/notice">공지사항</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/cns/bodotext">보도자료</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/cns/promotion">홍보영상</a>
+      </li>
+      <li class="nav-item">
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+          <a class="nav-link" href="/api/acnt/logout">로그아웃</a>
+        </th:block>
+        <th:block th:unless="${#authorization.expression('isAuthenticated')}">
+          <a class="nav-link" href="/api/acnt/login">로그인</a>
+        </th:block>
+      </li>
+      <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated')}">
+        <a class="nav-link" href="/api/acnt/signup">회원가입</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/qna">Q&A</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/events">이벤트</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<form id="noticeForm" th:action="@{/api/cns/noticeupdate/update}" method="post">
+  <div>
+    <label for="title">제목</label>
+    <input type="text" id="title" name="title">
+  </div>
+  <div th:if="${#authorization.expression('isAuthenticated()')}">
+    <input type="hidden" id="memberSno" name="memberSno" th:value="${#authentication.principal.memberSno}" />
+    <input type="hidden" id="creatUserNickname" name="creatUserNickname" th:value="${#authentication.principal.username}" />
+  </div>
+  <div>
+    <label for="content">내용</label>
+    <textarea id="content" name="content"></textarea>
+  </div>
+  <button type="submit" id="submitBtn">글 수정</button>
+</form>
+</body>
+</html>

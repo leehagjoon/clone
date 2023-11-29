@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>SPBD</title>
@@ -179,11 +179,11 @@
         </tr>
     </table>
     <p th:text="${noticeDto.content}"></p>
+    <th:block th:if="${#authorization.expression('isAuthenticated()') and isAuthor}">
+        <a th:href="@{'/api/cns/noticeupdate/'+${noticeDto.noticeSno}}" class="btn btn-primary">공지 업데이트</a>
+        <button onclick="confirmDelete(${noticeDto.noticeSno})" class="btn btn-danger">공지 삭제</button>
+    </th:block>
     <a class="back-to-notice" href="/api/cns/notice">공지사항</a>
-    <div th:if="${isOwner}">
-        <a th:href="@{'/edit/' + ${noticeDto.noticeSno}}">수정</a>
-        <a th:href="@{'/delete/' + ${noticeDto.noticeSno}}">삭제</a>
-    </div>
 </div>
 </body>
 </html>

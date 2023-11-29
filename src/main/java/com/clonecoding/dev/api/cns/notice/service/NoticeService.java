@@ -55,6 +55,7 @@ public class NoticeService {
     public void creatWrite(NoticeModel noticeModel, MemberPrincipalDetails principalDetails){
         NoticeBas bas = NoticeBas.builder()
                         .noticeSno(noticeModel.getNoticeSno())
+                        .memberSno(principalDetails.getMemberSno())
                         .title(noticeModel.getTitle())
                         .content(noticeModel.getContent())
                         .creatUser(principalDetails.getMember().getNickName())

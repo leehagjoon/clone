@@ -70,7 +70,9 @@ public class SecurityConfig {
                     .csrf(csrf -> csrf.disable());
 
             security.authorizeRequests(
-                    authorizeRequests -> authorizeRequests.anyRequest().permitAll()
+                    authorizeRequests -> authorizeRequests
+                            .antMatchers("/api/cns/noticewrite").authenticated()
+                            .anyRequest().permitAll()
             );
 
             security.formLogin(

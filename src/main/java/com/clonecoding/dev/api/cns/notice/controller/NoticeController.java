@@ -70,16 +70,17 @@ public class NoticeController {
     }
 
     @GetMapping("/detail/{noticeSno}")
-    public String getNoticeDetail(Model model, @PathVariable Integer noticeSno,  Authentication authentication) {
+    public String getNoticeDetail(Model model, @PathVariable Integer noticeSno, Authentication authentication) {
         noticeService.updateExpsrCnt(noticeSno);
-      NoticeBas noticeBas = noticeService.getNoticeDetail(noticeSno);
+        NoticeBas notice = noticeService.getNoticeDetail(noticeSno);
+        boolean isAuthor = false;
 
-      if(authentication != null && authentication.isAuthenticated() && noticeBas.getCreatUser().equals(authentication.getName())){
-          model.addAttribute("isOwner",true);
-      }else {
-          model.addAttribute("isOwner",false);
-      }
-      model.addAttribute("noticeDto",noticeBas);
+        if(authentication != null && authentication.isAuthenticated()){
+            isAuthor = notice.getCreatUser().equals(authentication.getName());
+        }
+        model.addAttribute("noticeDto",notice);
+        model.addAttribute("isAuthor", isAuthor);
+
         return "detail";
     }
 
@@ -110,4 +111,22 @@ public class NoticeController {
             return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/noticeupdate/{noticeSno}")
+    public String noticeUpdate(Model model, @PathVariable Integer noticeSno){
+        NoticeBas existingNotice = noticeService.getNoticeDetail(noticeSno);
+
+        //로그인한 사용자가 게시글 작성자인지 확인
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null && authentication.isAuthenticated()){
+            MemberPrincipalDetails principalDetails = (MemberPrincipalDetails) authentication.getPrincipal();
+            if(existingNotice.getCreatUser().equals(principalDetails.getMember().getNickName())){
+                model.addAttribute("noticeDto", existingNotice);
+                return "noticeupdate";
+            }
+        }
+        return "notice";
+    }
+
+
 }
