@@ -68,14 +68,11 @@ public class NoticeService {
     }
 
     @Transactional
-    public void updateNotice(NoticeModel model,MemberPrincipalDetails principalDetails){
-        NoticeBas bas = NoticeBas.builder()
-                .memberSno(principalDetails.getMemberSno())
-                .title(model.getTitle())
-                .content(model.getContent())
-                .creatUser(principalDetails.getMember().getNickName())
-                .build();
-        noticeBasRepository.save(bas);
+    public void updateNotice(NoticeModel model,Integer noticeSno){
+        NoticeBas noticeBas = noticeBasRepository.findById(noticeSno)
+                .orElseThrow(()-> new IllegalArgumentException("해당 게시물이 없습니다. " + noticeSno));
+
+        noticeBas.update(model.getTitle(),model.getContent());
     }
 
 }

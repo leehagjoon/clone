@@ -99,18 +99,15 @@
   </div>
 </nav>
 
-<form id="noticeForm" th:action="@{/api/cns/noticeupdate/update}" th:method="PUT">
+<form id="noticeForm" th:action="@{/api/cns/noticeupdate/{noticeSno}(noticeSno=${noticeDto.noticeSno})}" method="post">
+<!--  <input type="hidden" name="_method" value="put"/>-->
   <div>
     <label for="title">제목</label>
-    <input type="text" id="title" name="title">
-  </div>
-  <div th:if="${#authorization.expression('isAuthenticated()')}">
-    <input type="hidden" id="memberSno" name="memberSno" th:value="${#authentication.principal.memberSno}" />
-    <input type="hidden" id="creatUserNickname" name="creatUserNickname" th:value="${#authentication.principal.username}" />
+    <input type="text" id="title" name="title" th:value="${noticeDto.title}">
   </div>
   <div>
     <label for="content">내용</label>
-    <textarea id="content" name="content"></textarea>
+    <textarea id="content" name="content" th:value="${noticeDto.content}"></textarea>
   </div>
   <button type="submit" id="submitBtn">수정</button>
 </form>

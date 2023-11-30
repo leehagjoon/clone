@@ -113,35 +113,19 @@ public class NoticeController {
     }
 
     @GetMapping("/noticeupdate/{noticeSno}")
-    public String noticeUpdate(Model model, @PathVariable Integer noticeSno){
-        NoticeBas existingNotice = noticeService.getNoticeDetail(noticeSno);
-
-        //로그인한 사용자가 게시글 작성자인지 확인
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication != null && authentication.isAuthenticated()){
-            MemberPrincipalDetails principalDetails = (MemberPrincipalDetails) authentication.getPrincipal();
-            if(existingNotice.getCreatUser().equals(principalDetails.getMember().getNickName())){
-                model.addAttribute("noticeDto", existingNotice);
-                return "noticeupdate";
-            }
-        }
-        return "notice";
+    public String edit(@PathVariable Integer noticeSno , Model model){
+        NoticeBas noticeBas = noticeService.getNoticeDetail(noticeSno);
+        model.addAttribute("noticeDto",noticeBas);
+        return "noticeupdate";
     }
 
-    @PostMapping(value = "/noticeupdate/update" ,produces = "application/json; charset=UTF-8")
-    public ResponseEntity<Map<String,String>> update(@RequestBody NoticeModel model, Authentication authentication) {
+    @PostMapping(value = "/noticeupdate/{noticeSno}" ,produces = "application/json; charset=UTF-8")
+    public ResponseEntity<Map<String,String>> update(@RequestBody NoticeModel model,@PathVariable Integer noticeSno) {
         Map<String, String> res = new HashMap<>();
-        log.info("415 : {} ",model);
         try {
-            if (authentication != null && authentication.isAuthenticated()) {
-                MemberPrincipalDetails principalDetails = (MemberPrincipalDetails) authentication.getPrincipal();
-                noticeService.updateNotice(model, principalDetails);
+                noticeService.updateNotice(model,noticeSno);
                 res.put("message", "success");
                 return new ResponseEntity<>(res, HttpStatus.OK);
-            } else {
-                res.put("message","로그인이 필요합니다.");
-                return new ResponseEntity<>(res,HttpStatus.UNAUTHORIZED);
-            }
         } catch (Exception e) {
             res.put("message", "fail");
             return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);

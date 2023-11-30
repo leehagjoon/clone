@@ -5,6 +5,18 @@
     <title>SPBD</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            const updateY = function () {
+                console.log("수정 요청");
+                const id = [[${noticeDto.noticeSno}]];
+                window.location.href = "/api/cns/noticeupdate/" + id;
+            };
+
+            $("#updateButton").click(updateY);
+        });
+    </script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -158,10 +170,11 @@
     </table>
     <p th:text="${noticeDto.content}"></p>
     <th:block th:if="${#authorization.expression('isAuthenticated()') and isAuthor}">
-        <a th:href="@{'/api/cns/noticeupdate/'+${noticeDto.noticeSno}}" class="btn btn-primary">공지 업데이트</a>
-        <button onclick="confirmDelete(${noticeDto.noticeSno})" class="btn btn-danger">공지 삭제</button>
+        <button id="updateButton" class="btn btn-primary">수정</button>
+        <button onclick="deleteY" class="btn btn-danger">삭제</button>
     </th:block>
     <a class="back-to-notice" href="/api/cns/notice">공지사항</a>
 </div>
 </body>
+
 </html>

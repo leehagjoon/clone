@@ -71,7 +71,7 @@ public class SecurityConfig {
 
             security.authorizeRequests(
                     authorizeRequests -> authorizeRequests
-                            .antMatchers("/api/cns/noticewrite").authenticated()
+                            .antMatchers("/api/cns/noticewrite", "/api/cns/noticeupdate").authenticated()
                             .anyRequest().permitAll()
             );
 
