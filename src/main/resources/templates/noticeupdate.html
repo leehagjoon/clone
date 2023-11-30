@@ -107,7 +107,7 @@
   </div>
   <div>
     <label for="content">내용</label>
-    <textarea id="content" name="content" th:value="${noticeDto.content}"></textarea>
+    <textarea id="content" name="content">[[${noticeDto.content}]]</textarea>
   </div>
   <button type="submit" id="submitBtn">수정</button>
 </form>
