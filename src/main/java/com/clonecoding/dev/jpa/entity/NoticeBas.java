@@ -74,6 +74,7 @@ public class NoticeBas {
     public void update(String title, String content){
         this.title = title;
         this.content = content;
+        this.creatDt = LocalDateTime.now();
     }
 
     public void delete(){
