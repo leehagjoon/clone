@@ -34,11 +34,11 @@ public class NoticeService {
     private final NoticeBasRepository noticeBasRepository;
 
     public Page<NoticeBas> getNoticeList(Pageable pageable) {
-        return noticeBasRepository.findAll(pageable);
+        return noticeBasRepository.findByUseYn("Y",pageable);
     }
 
-    public Page<NoticeBas> searchTitle(String keyword, Pageable pageable){
-        return noticeBasRepository.findNoticeBasByTitleContaining(keyword, pageable);
+    public Page<NoticeBas> searchTitle(String keyword, String useYn,Pageable pageable){
+        return noticeBasRepository.findNoticeBasByTitleContainingAndUseYn(keyword, useYn,pageable);
     }
 
 
@@ -73,6 +73,15 @@ public class NoticeService {
                 .orElseThrow(()-> new IllegalArgumentException("해당 게시물이 없습니다. " + noticeSno));
 
         noticeBas.update(model.getTitle(),model.getContent());
+    }
+
+    @Transactional
+    public void deleteNotice(Integer noticeSno){
+        NoticeBas noticeBas = noticeBasRepository.findById(noticeSno)
+                .orElseThrow(()-> new IllegalArgumentException("해당 게시물이 없습니다. noticeSno = " + noticeSno));
+        //논리 삭제
+        noticeBas.delete();
+        noticeBasRepository.save(noticeBas);
     }
 
 }

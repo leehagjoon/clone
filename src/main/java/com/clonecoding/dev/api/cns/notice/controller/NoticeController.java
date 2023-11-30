@@ -53,13 +53,14 @@ public class NoticeController {
                                 @RequestParam(value = "keyword", required = false) String keyword,
                                 @RequestParam(value = "searchType", required = false) String searchType,
                                 @RequestParam(value = "page", defaultValue = "0") int page,
-                                @PageableDefault(size = 10, sort = "noticeSno", direction = Sort.Direction.DESC) Pageable pageable) {
+                                @PageableDefault(size = 10, sort = "noticeSno", direction = Sort.Direction.DESC) Pageable pageable,
+                                String useYn) {
         Page<NoticeBas> searchList = null;
 
         if ("all".equals(searchType)) {
             searchList = noticeService.getNoticeList(pageable);
         } else if ("title".equals(searchType)) {
-            searchList = noticeService.searchTitle(keyword, pageable);
+            searchList = noticeService.searchTitle(keyword, useYn,pageable);
         }
 
         model.addAttribute("noticeList", searchList);
@@ -129,6 +130,19 @@ public class NoticeController {
         } catch (Exception e) {
             res.put("message", "fail");
             return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping(value = "/delete/{noticeSno}", produces = "application/json; charset=UTF-8")
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Integer noticeSno){
+        Map<String,String> res = new HashMap<>();
+        try{
+            noticeService.deleteNotice(noticeSno);
+            res.put("message", "success");
+            return new ResponseEntity<>(res,HttpStatus.OK);
+        }catch (IllegalStateException e){
+            res.put("message","fail");
+            return new ResponseEntity<>(res,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

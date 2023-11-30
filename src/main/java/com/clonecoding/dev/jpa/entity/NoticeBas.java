@@ -75,4 +75,8 @@ public class NoticeBas {
         this.title = title;
         this.content = content;
     }
+
+    public void delete(){
+        this.useYn = "N";
+    }
 }
